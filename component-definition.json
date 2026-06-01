@@ -167,9 +167,11 @@
                 "template": {
                   "name": "Teaser",
                   "model": "teaser",
+                  "textContent_title": "Enter a title",
+                  "textContent_titleType": "h2",
                   "titleAlign": "left",
                   "textAlign": "left",
-                  "textContent_text": "<h2>Enter a title</h2><p>...and body text here!</p>",
+                  "textContent_text": "<p>...and body text here!</p>",
                   "textContent_cta": "/",
                   "textContent_ctaText": "Click me!"
                 }

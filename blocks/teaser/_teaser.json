@@ -9,9 +9,11 @@
           "template": {
             "name": "Teaser",
             "model": "teaser",
+            "textContent_title": "Enter a title",
+            "textContent_titleType": "h2",
             "titleAlign": "left",
             "textAlign": "left",
-            "textContent_text": "<h2>Enter a title</h2><p>...and body text here!</p>",
+            "textContent_text": "<p>...and body text here!</p>",
             "textContent_cta": "/",
             "textContent_ctaText": "Click me!"
           }
@@ -31,11 +33,51 @@
           "multi": false
         },
         {
-          "component": "text",
+          "component": "title",
           "valueType": "string",
           "name": "imageAlt",
           "label": "Image Alt Text",
           "required": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "textContent_title",
+          "label": "Title",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "textContent_titleType",
+          "label": "Title level",
+          "valueType": "string",
+          "value": "h2",
+          "options": [
+            {
+              "name": "H1",
+              "value": "h1"
+            },
+            {
+              "name": "H2",
+              "value": "h2"
+            },
+            {
+              "name": "H3",
+              "value": "h3"
+            },
+            {
+              "name": "H4",
+              "value": "h4"
+            },
+            {
+              "name": "H5",
+              "value": "h5"
+            },
+            {
+              "name": "H6",
+              "value": "h6"
+            }
+          ]
         },
         {
           "component": "select",
