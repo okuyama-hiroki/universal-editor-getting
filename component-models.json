@@ -233,6 +233,48 @@
         "required": true
       },
       {
+        "component": "select",
+        "name": "titleAlign",
+        "label": "Title alignment",
+        "valueType": "string",
+        "value": "left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "textAlign",
+        "label": "Text alignment",
+        "valueType": "string",
+        "value": "left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
         "component": "richtext",
         "name": "textContent_text",
         "label": "Text",

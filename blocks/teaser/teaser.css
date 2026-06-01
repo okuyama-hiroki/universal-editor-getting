@@ -1,3 +1,27 @@
 .block.teaser {
   display: block;
 }
+
+.block.teaser.title-align-left :is(h1, h2, h3, h4, h5, h6) {
+  text-align: left;
+}
+
+.block.teaser.title-align-center :is(h1, h2, h3, h4, h5, h6) {
+  text-align: center;
+}
+
+.block.teaser.title-align-right :is(h1, h2, h3, h4, h5, h6) {
+  text-align: right;
+}
+
+.block.teaser.text-align-left :is(p, li, a) {
+  text-align: left;
+}
+
+.block.teaser.text-align-center :is(p, li, a) {
+  text-align: center;
+}
+
+.block.teaser.text-align-right :is(p, li, a) {
+  text-align: right;
+}
