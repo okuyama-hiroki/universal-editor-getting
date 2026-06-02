@@ -48,7 +48,9 @@
         "button",
         "title",
         "hero",
+        "quote",
         "cards",
+        "carousel",
         "columns",
         "fragment",
         "teaser"

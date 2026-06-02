@@ -1,0 +1,16 @@
+.block.quote {
+  display: block;
+}
+
+.block.quote blockquote {
+  margin: 0;
+  padding: 24px;
+  border-left: 4px solid var(--text-color);
+  font-style: italic;
+}
+
+.block.quote p:last-child {
+  margin-top: 12px;
+  font-style: normal;
+  font-size: var(--body-font-size-s);
+}
