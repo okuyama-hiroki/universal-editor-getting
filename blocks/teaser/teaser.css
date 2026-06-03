@@ -25,3 +25,19 @@
 .block.teaser.text-align-right :is(p, li, a) {
   text-align: right;
 }
+
+.block.teaser.text-color-default :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: var(--text-color);
+}
+
+.block.teaser.text-color-dark :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: #131313;
+}
+
+.block.teaser.text-color-light :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: #fff;
+}
+
+.block.teaser.text-color-accent :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: var(--link-color);
+}

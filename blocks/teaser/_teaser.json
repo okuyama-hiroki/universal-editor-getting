@@ -11,6 +11,7 @@
             "model": "teaser",
             "textContent_title": "Enter a title",
             "textContent_titleType": "h2",
+            "textContent_textColor": "default",
             "titleAlign": "left",
             "textAlign": "left",
             "textContent_text": "<p>...and body text here!</p>",
@@ -76,6 +77,31 @@
             {
               "name": "H6",
               "value": "h6"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "textContent_textColor",
+          "label": "Text color",
+          "valueType": "string",
+          "value": "default",
+          "options": [
+            {
+              "name": "Default",
+              "value": "default"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Light",
+              "value": "light"
+            },
+            {
+              "name": "Accent",
+              "value": "accent"
             }
           ]
         },
