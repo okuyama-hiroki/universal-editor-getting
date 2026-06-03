@@ -212,11 +212,11 @@
                 "template": {
                   "name": "Teaser",
                   "model": "teaser",
+                  "classes_titleAlign": "title-align-left",
+                  "classes_textAlign": "text-align-left",
+                  "classes_textColor": "",
                   "textContent_title": "Enter a title",
                   "textContent_titleType": "h2",
-                  "textContent_textColor": "default",
-                  "titleAlign": "left",
-                  "textAlign": "left",
                   "textContent_text": "<p>...and body text here!</p>",
                   "textContent_cta": "/",
                   "textContent_ctaText": "Click me!"

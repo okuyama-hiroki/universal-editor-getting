@@ -263,6 +263,73 @@
     "id": "teaser",
     "fields": [
       {
+        "component": "select",
+        "name": "classes_titleAlign",
+        "label": "Title alignment",
+        "valueType": "string",
+        "value": "title-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "title-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "title-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "title-align-right"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes_textAlign",
+        "label": "Text alignment",
+        "valueType": "string",
+        "value": "text-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "text-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "text-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "text-align-right"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes_textColor",
+        "label": "Text color",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Dark",
+            "value": "text-color-dark"
+          },
+          {
+            "name": "Light",
+            "value": "text-color-light"
+          },
+          {
+            "name": "Accent",
+            "value": "text-color-accent"
+          }
+        ]
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -313,73 +380,6 @@
           {
             "name": "H6",
             "value": "h6"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "textContent_textColor",
-        "label": "Text color",
-        "valueType": "string",
-        "value": "default",
-        "options": [
-          {
-            "name": "Default",
-            "value": "default"
-          },
-          {
-            "name": "Dark",
-            "value": "dark"
-          },
-          {
-            "name": "Light",
-            "value": "light"
-          },
-          {
-            "name": "Accent",
-            "value": "accent"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "titleAlign",
-        "label": "Title alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "textAlign",
-        "label": "Text alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
           }
         ]
       },
