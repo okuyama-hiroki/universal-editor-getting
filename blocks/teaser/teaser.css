@@ -30,14 +30,14 @@
   color: var(--text-color);
 }
 
-.block.teaser.text-color-dark :is(p, li) {
-  color: #131313;
+.block.teaser.text-color-red :is(p, li, a:not(.button)) {
+  color: #c00;
 }
 
-.block.teaser.text-color-light :is(p, li) {
-  color: #fff;
+.block.teaser.text-color-blue :is(p, li, a:not(.button)) {
+  color: #00f;
 }
 
-.block.teaser.text-color-accent :is(p, li) {
-  color: var(--link-color);
+.block.teaser.text-color-green :is(p, li, a:not(.button)) {
+  color: #080;
 }

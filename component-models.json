@@ -316,16 +316,16 @@
             "value": ""
           },
           {
-            "name": "Dark",
-            "value": "text-color-dark"
+            "name": "Red",
+            "value": "text-color-red"
           },
           {
-            "name": "Light",
-            "value": "text-color-light"
+            "name": "Blue",
+            "value": "text-color-blue"
           },
           {
-            "name": "Accent",
-            "value": "text-color-accent"
+            "name": "Green",
+            "value": "text-color-green"
           }
         ]
       },
