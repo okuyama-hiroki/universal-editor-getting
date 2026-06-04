@@ -263,6 +263,51 @@
     "id": "teaser",
     "fields": [
       {
+        "component": "tab",
+        "label": "Title",
+        "name": "tab-title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "textContent_title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "textContent_titleType",
+        "label": "Title level",
+        "valueType": "string",
+        "value": "h2",
+        "options": [
+          {
+            "name": "H1",
+            "value": "h1"
+          },
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          },
+          {
+            "name": "H4",
+            "value": "h4"
+          },
+          {
+            "name": "H5",
+            "value": "h5"
+          },
+          {
+            "name": "H6",
+            "value": "h6"
+          }
+        ]
+      },
+      {
         "component": "select",
         "name": "classes_titleAlign",
         "label": "Title alignment",
@@ -282,6 +327,18 @@
             "value": "title-align-right"
           }
         ]
+      },
+      {
+        "component": "tab",
+        "label": "Text",
+        "name": "tab-text"
+      },
+      {
+        "component": "richtext",
+        "name": "textContent_text",
+        "label": "Text",
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "select",
@@ -330,65 +387,9 @@
         ]
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "title",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Image Alt Text",
-        "required": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "textContent_title",
-        "label": "Title",
-        "value": ""
-      },
-      {
-        "component": "select",
-        "name": "textContent_titleType",
-        "label": "Title level",
-        "valueType": "string",
-        "value": "h2",
-        "options": [
-          {
-            "name": "H1",
-            "value": "h1"
-          },
-          {
-            "name": "H2",
-            "value": "h2"
-          },
-          {
-            "name": "H3",
-            "value": "h3"
-          },
-          {
-            "name": "H4",
-            "value": "h4"
-          },
-          {
-            "name": "H5",
-            "value": "h5"
-          },
-          {
-            "name": "H6",
-            "value": "h6"
-          }
-        ]
-      },
-      {
-        "component": "richtext",
-        "name": "textContent_text",
-        "label": "Text",
-        "valueType": "string",
-        "required": true
+        "component": "tab",
+        "label": "CTA",
+        "name": "tab-cta"
       },
       {
         "component": "aem-content",
@@ -401,6 +402,25 @@
         "name": "textContent_ctaText",
         "label": "CTA label",
         "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "label": "Image",
+        "name": "tab-image"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "title",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "required": true
       }
     ]
   }
