@@ -16,39 +16,30 @@
   --teaser-text-color: #080;
 }
 
-.block.teaser.text-color-red :is(p:not(.button-container), li),
-.block.teaser.text-color-blue :is(p:not(.button-container), li),
-.block.teaser.text-color-green :is(p:not(.button-container), li) {
+.block.teaser.text-color-red > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li),
+.block.teaser.text-color-blue > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li),
+.block.teaser.text-color-green > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li) {
   color: var(--teaser-text-color);
 }
 
-.block.teaser.text-color-red :is(p:not(.button-container), li) a:not(.button),
-.block.teaser.text-color-blue :is(p:not(.button-container), li) a:not(.button),
-.block.teaser.text-color-green :is(p:not(.button-container), li) a:not(.button) {
+.block.teaser.text-color-red > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li) a:not(.button),
+.block.teaser.text-color-blue > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li) a:not(.button),
+.block.teaser.text-color-green > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li) a:not(.button) {
   color: inherit;
 }
 
-.block.teaser.title-align-left :is(h1, h2, h3, h4, h5, h6) {
+.block.teaser.title-align-left :is(h1, h2, h3, h4, h5, h6),
+.block.teaser.title-align-left > div:has(> div > :is(h1, h2, h3, h4, h5, h6)) > div {
   text-align: left;
 }
 
-.block.teaser.title-align-center :is(h1, h2, h3, h4, h5, h6) {
+.block.teaser.title-align-center :is(h1, h2, h3, h4, h5, h6),
+.block.teaser.title-align-center > div:has(> div > :is(h1, h2, h3, h4, h5, h6)) > div {
   text-align: center;
 }
 
-.block.teaser.title-align-right :is(h1, h2, h3, h4, h5, h6) {
-  text-align: right;
-}
-
-.block.teaser.text-align-left :is(p:not(.button-container), li) {
-  text-align: left;
-}
-
-.block.teaser.text-align-center :is(p:not(.button-container), li) {
-  text-align: center;
-}
-
-.block.teaser.text-align-right :is(p:not(.button-container), li) {
+.block.teaser.title-align-right :is(h1, h2, h3, h4, h5, h6),
+.block.teaser.title-align-right > div:has(> div > :is(h1, h2, h3, h4, h5, h6)) > div {
   text-align: right;
 }
 
@@ -61,5 +52,20 @@
 }
 
 .block.teaser.cta-align-right > div:has(> div .button-container) > div {
+  text-align: right;
+}
+
+.block.teaser.text-align-left > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) > div,
+.block.teaser.text-align-left > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li) {
+  text-align: left;
+}
+
+.block.teaser.text-align-center > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) > div,
+.block.teaser.text-align-center > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li) {
+  text-align: center;
+}
+
+.block.teaser.text-align-right > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) > div,
+.block.teaser.text-align-right > div:not(:has(picture, img), :has(> div > :is(h1, h2, h3, h4, h5, h6)), :has(> div .button-container)) :is(p:not(.button-container), li) {
   text-align: right;
 }

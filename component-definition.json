@@ -216,11 +216,11 @@
                   "classes_textAlign": "text-align-left",
                   "classes_ctaAlign": "cta-align-left",
                   "classes_textColor": "",
-                  "textContent_title": "Enter a title",
-                  "textContent_titleType": "h2",
-                  "textContent_text": "<p>...and body text here!</p>",
-                  "textContent_cta": "/",
-                  "textContent_ctaText": "Click me!"
+                  "title": "Enter a title",
+                  "titleType": "h2",
+                  "text": "<p>...and body text here!</p>",
+                  "cta": "/",
+                  "ctaText": "Click me!"
                 }
               }
             }

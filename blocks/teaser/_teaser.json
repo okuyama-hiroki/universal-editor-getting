@@ -13,11 +13,11 @@
             "classes_textAlign": "text-align-left",
             "classes_ctaAlign": "cta-align-left",
             "classes_textColor": "",
-            "textContent_title": "Enter a title",
-            "textContent_titleType": "h2",
-            "textContent_text": "<p>...and body text here!</p>",
-            "textContent_cta": "/",
-            "textContent_ctaText": "Click me!"
+            "title": "Enter a title",
+            "titleType": "h2",
+            "text": "<p>...and body text here!</p>",
+            "cta": "/",
+            "ctaText": "Click me!"
           }
         }
       }
@@ -35,13 +35,13 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "textContent_title",
+          "name": "title",
           "label": "Title",
           "value": ""
         },
         {
           "component": "select",
-          "name": "textContent_titleType",
+          "name": "titleType",
           "label": "Title level",
           "valueType": "string",
           "value": "h2",
@@ -100,7 +100,7 @@
         },
         {
           "component": "richtext",
-          "name": "textContent_text",
+          "name": "text",
           "label": "Text",
           "valueType": "string",
           "required": true
@@ -158,13 +158,13 @@
         },
         {
           "component": "aem-content",
-          "name": "textContent_cta",
+          "name": "cta",
           "label": "CTA",
           "valueType": "string"
         },
         {
           "component": "text",
-          "name": "textContent_ctaText",
+          "name": "ctaText",
           "label": "CTA label",
           "valueType": "string"
         },
