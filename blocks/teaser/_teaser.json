@@ -198,15 +198,28 @@
           "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Image",
+          "label": "Image (PC)",
           "multi": false
         },
         {
           "component": "title",
           "valueType": "string",
           "name": "imageAlt",
-          "label": "Image Alt Text",
+          "label": "Image Alt Text (PC)",
           "required": true
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "imageMobile",
+          "label": "Image (SP)",
+          "multi": false
+        },
+        {
+          "component": "title",
+          "valueType": "string",
+          "name": "imageMobileAlt",
+          "label": "Image Alt Text (SP)"
         }
       ]
     }
