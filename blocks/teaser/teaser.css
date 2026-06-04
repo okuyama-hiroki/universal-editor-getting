@@ -1,5 +1,7 @@
 .block.teaser {
   display: block;
+
+  --teaser-text-color: var(--text-color);
 }
 
 .block.teaser.title-align-left :is(h1, h2, h3, h4, h5, h6) {
@@ -26,18 +28,18 @@
   text-align: right;
 }
 
-.block.teaser :is(p, li) {
-  color: var(--text-color);
+.block.teaser.text-color-red {
+  --teaser-text-color: #c00;
 }
 
-.block.teaser.text-color-red :is(p, li, a:not(.button)) {
-  color: #c00;
+.block.teaser.text-color-blue {
+  --teaser-text-color: #00f;
 }
 
-.block.teaser.text-color-blue :is(p, li, a:not(.button)) {
-  color: #00f;
+.block.teaser.text-color-green {
+  --teaser-text-color: #080;
 }
 
-.block.teaser.text-color-green :is(p, li, a:not(.button)) {
-  color: #080;
+.block.teaser :is(p, li, a:not(.button)) {
+  color: var(--teaser-text-color);
 }
