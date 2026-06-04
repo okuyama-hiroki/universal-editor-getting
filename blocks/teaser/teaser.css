@@ -5,23 +5,25 @@
 }
 
 /* Responsive images: PC row + optional SP row (900px breakpoint) */
-.block.teaser > div:has(> div > picture) picture,
-.block.teaser > div:has(> div > picture) img {
+.block.teaser .teaser-image-desktop picture,
+.block.teaser .teaser-image-desktop img,
+.block.teaser .teaser-image-mobile picture,
+.block.teaser .teaser-image-mobile img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.block.teaser > div:has(> div > picture) + div:has(> div > picture) {
+.block.teaser .teaser-image-mobile {
   display: none;
 }
 
 @media (width < 900px) {
-  .block.teaser > div:has(> div > picture):has(+ div > div > picture) {
+  .block.teaser:has(.teaser-image-mobile) .teaser-image-desktop {
     display: none;
   }
 
-  .block.teaser > div:has(> div > picture) + div:has(> div > picture) {
+  .block.teaser .teaser-image-mobile {
     display: block;
   }
 }

@@ -202,7 +202,7 @@
           "multi": false
         },
         {
-          "component": "title",
+          "component": "text",
           "valueType": "string",
           "name": "imageAlt",
           "label": "Image Alt Text (PC)",
@@ -216,7 +216,7 @@
           "multi": false
         },
         {
-          "component": "title",
+          "component": "text",
           "valueType": "string",
           "name": "imageMobileAlt",
           "label": "Image Alt Text (SP)"
