@@ -1,52 +1,155 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+let cachedDeliveryOrigin;
+
 function isImageUrl(url) {
-  if (!url || !/^https?:\/\//.test(url)) return false;
-  return /\.(avif|png|jpe?g|gif|webp|svg)(\?|$)/i.test(url)
-    || url.includes('/adobe/assets/')
-    || url.includes('adobeaemcloud.com');
+  if (!url) return false;
+  const value = typeof url === 'string' ? url.trim() : '';
+  if (!value) return false;
+  if (/^urn:aaid:/i.test(value)) return true;
+  if (/^\/(content\/dam|adobe\/assets)\//i.test(value)) return true;
+  if (!/^https?:\/\//.test(value)) return false;
+  return /\.(avif|png|jpe?g|gif|webp|svg)(\?|$)/i.test(value)
+    || value.includes('/adobe/assets/')
+    || value.includes('/content/dam/')
+    || value.includes('adobeaemcloud.com')
+    || value.includes('scene7.com');
 }
 
-function isDeliveryOrExternalUrl(src) {
-  try {
-    const url = new URL(src, window.location.href);
-    return url.origin !== window.location.origin
-      || src.includes('adobeaemcloud.com')
-      || src.includes('/adobe/assets/');
-  } catch {
-    return false;
+function getDeliveryOrigin() {
+  if (cachedDeliveryOrigin) return cachedDeliveryOrigin;
+
+  const candidate = document.querySelector(
+    'img[src*="adobeaemcloud.com"], a[href*="adobeaemcloud.com"]',
+  );
+  if (candidate) {
+    const raw = candidate.getAttribute('src') || candidate.getAttribute('href') || '';
+    try {
+      const { origin, hostname } = new URL(raw, window.location.href);
+      if (hostname.includes('adobeaemcloud.com')) {
+        cachedDeliveryOrigin = origin;
+        return cachedDeliveryOrigin;
+      }
+    } catch {
+      // ignore
+    }
   }
+
+  cachedDeliveryOrigin = window.location.origin;
+  return cachedDeliveryOrigin;
 }
 
-function readImageUrl(cell) {
-  const link = cell.querySelector('a[href]');
-  if (link?.href && isImageUrl(link.href)) {
-    return link.href;
+function findDeliveryUrlInElement(el) {
+  if (!el) return null;
+  const attrs = [...el.attributes].map((a) => a.value).join(' ');
+  const haystack = `${attrs} ${el.innerHTML}`;
+  const match = haystack.match(/https:\/\/delivery-[^"'\\s<>]+/);
+  return match ? match[0] : null;
+}
+
+function normalizeImageSrc(raw) {
+  if (!raw) return null;
+  const value = raw.trim();
+  if (!value || value === '#' || value === 'about:blank') return null;
+
+  const deliveryFromDom = findDeliveryUrlInElement(document.body);
+  if (/^https?:\/\//.test(value) && isImageUrl(value)) {
+    try {
+      return new URL(value, window.location.href).href;
+    } catch {
+      return null;
+    }
   }
 
-  const text = cell.textContent.trim();
-  if (isImageUrl(text)) {
-    return text;
+  if (value.startsWith('/adobe/assets/') || value.startsWith('/content/dam/')) {
+    const base = deliveryFromDom
+      ? new URL(deliveryFromDom).origin
+      : getDeliveryOrigin();
+    try {
+      return new URL(value, `${base}/`).href;
+    } catch {
+      return null;
+    }
   }
 
-  const img = cell.querySelector('picture img, img');
-  if (img?.src && isImageUrl(img.src)) {
-    return img.src;
+  if (/^urn:aaid:/i.test(value)) {
+    const base = deliveryFromDom
+      ? new URL(deliveryFromDom).origin
+      : getDeliveryOrigin();
+    return `${base}/adobe/assets/${value}`;
   }
 
   return null;
 }
 
-function readImageAlt(cell, src) {
-  const img = cell.querySelector('picture img, img');
-  if (img?.alt && img.alt !== src) {
-    return img.alt;
+function isLikelyBrokenImgSrc(src) {
+  try {
+    const url = new URL(src, window.location.href);
+    if (url.searchParams.has('width') || url.searchParams.has('optimize')) return true;
+    return url.origin === window.location.origin && url.pathname.includes('/adobe/assets/');
+  } catch {
+    return true;
+  }
+}
+
+function getRowCells(row) {
+  const wrapper = row.querySelector(':scope > div');
+  if (!wrapper) return [];
+  const cells = [...wrapper.children].filter((el) => el.tagName === 'DIV');
+  return cells.length ? cells : [wrapper];
+}
+
+function readImageUrl(cell) {
+  const imageLink = [...cell.querySelectorAll('a[href]')].find((link) => {
+    const href = link.getAttribute('href') || '';
+    return isImageUrl(href);
+  });
+  if (imageLink) {
+    const href = imageLink.getAttribute('href') || '';
+    const normalized = normalizeImageSrc(href);
+    if (normalized) return normalized;
   }
 
-  const link = cell.querySelector('a[href]');
-  if (link && isImageUrl(link.href)) {
-    const label = link.textContent.trim();
+  const delivery = findDeliveryUrlInElement(cell);
+  if (delivery) return delivery;
+
+  const text = cell.textContent.trim();
+  if (isImageUrl(text)) {
+    const normalized = normalizeImageSrc(text);
+    if (normalized) return normalized;
+  }
+
+  const img = cell.querySelector('picture img, img');
+  if (img) {
+    const raw = img.getAttribute('src') || img.src;
+    if (raw && !isLikelyBrokenImgSrc(raw)) {
+      const normalized = normalizeImageSrc(raw);
+      if (normalized) return normalized;
+    }
+  }
+
+  return null;
+}
+
+function readImageUrlFromRow(row) {
+  const cells = getRowCells(row);
+  const match = cells.map((cell) => readImageUrl(cell)).find(Boolean);
+  return match || null;
+}
+
+function readImageAlt(row, src) {
+  const cells = getRowCells(row);
+  const fromImg = cells.map((cell) => cell.querySelector('picture img, img')).find(Boolean);
+  if (fromImg?.alt && fromImg.alt !== src && fromImg.alt.length > 0) {
+    return fromImg.alt;
+  }
+
+  const imageLink = cells
+    .flatMap((cell) => [...cell.querySelectorAll('a[href]')])
+    .find((link) => isImageUrl(link.getAttribute('href') || ''));
+
+  if (imageLink) {
+    const label = imageLink.textContent.trim();
     if (label && label !== src && !isImageUrl(label)) {
       return label;
     }
@@ -66,56 +169,38 @@ function isAltOnlyRow(row) {
   return text.length > 0 && !isImageUrl(text);
 }
 
-function isImageRow(row) {
+function isCtaRow(row) {
   const cell = row.querySelector(':scope > div');
   if (!cell) return false;
-  // decorateButtons runs before teaser.js and may turn image links into .button
-  return Boolean(cell.querySelector('picture') || readImageUrl(cell));
+  const link = cell.querySelector('.button-container a[href], a.button[href]');
+  if (!link) return false;
+  const href = link.getAttribute('href') || link.href;
+  return !isImageUrl(href);
+}
+
+function isImageRow(row) {
+  if (isCtaRow(row)) return false;
+  const cells = getRowCells(row);
+  return cells.some((cell) => cell.querySelector('picture, img') || readImageUrl(cell));
 }
 
 function buildPicture(src, alt) {
-  if (isDeliveryOrExternalUrl(src)) {
-    const picture = document.createElement('picture');
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = alt || '';
-    img.loading = 'lazy';
-    picture.append(img);
-    return picture;
-  }
-
-  return createOptimizedPicture(
-    src,
-    alt,
-    false,
-    [{ media: '(min-width: 900px)', width: '2000' }, { width: '750' }],
-  );
-}
-
-function needsPictureReplacement(cell, src) {
-  const picture = cell.querySelector('picture');
-  if (!picture) return true;
-
-  const img = picture.querySelector('img');
-  if (!img) return true;
-
-  if (isDeliveryOrExternalUrl(src)) {
-    return img.src !== src;
-  }
-
-  return false;
+  const picture = document.createElement('picture');
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = alt || '';
+  img.loading = 'lazy';
+  picture.append(img);
+  return picture;
 }
 
 function decorateImageRow(row, index) {
   row.classList.add(index === 0 ? 'teaser-image-desktop' : 'teaser-image-mobile');
 
-  const cell = row.querySelector(':scope > div');
-  if (!cell) return;
-
-  const src = readImageUrl(cell);
+  const src = readImageUrlFromRow(row);
   if (!src) return;
 
-  let alt = readImageAlt(cell, src);
+  let alt = readImageAlt(row, src);
 
   const nextRow = row.nextElementSibling;
   if (nextRow && isAltOnlyRow(nextRow)) {
@@ -123,13 +208,8 @@ function decorateImageRow(row, index) {
     nextRow.remove();
   }
 
-  if (!needsPictureReplacement(cell, src)) {
-    const img = cell.querySelector('picture img, img');
-    if (img && alt && img.alt !== alt) {
-      img.alt = alt;
-    }
-    return;
-  }
+  const cell = getRowCells(row)[0] || row.querySelector(':scope > div');
+  if (!cell) return;
 
   const picture = buildPicture(src, alt);
   moveInstrumentation(cell, picture.querySelector('img'));
