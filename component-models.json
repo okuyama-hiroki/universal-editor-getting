@@ -404,6 +404,27 @@
         "valueType": "string"
       },
       {
+        "component": "select",
+        "name": "classes_ctaAlign",
+        "label": "CTA alignment",
+        "valueType": "string",
+        "value": "cta-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "cta-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "cta-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "cta-align-right"
+          }
+        ]
+      },
+      {
         "component": "tab",
         "label": "Image",
         "name": "tab-image"

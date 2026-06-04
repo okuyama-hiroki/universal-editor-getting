@@ -214,6 +214,7 @@
                   "model": "teaser",
                   "classes_titleAlign": "title-align-left",
                   "classes_textAlign": "text-align-left",
+                  "classes_ctaAlign": "cta-align-left",
                   "classes_textColor": "",
                   "textContent_title": "Enter a title",
                   "textContent_titleType": "h2",

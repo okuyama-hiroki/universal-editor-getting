@@ -11,6 +11,7 @@
             "model": "teaser",
             "classes_titleAlign": "title-align-left",
             "classes_textAlign": "text-align-left",
+            "classes_ctaAlign": "cta-align-left",
             "classes_textColor": "",
             "textContent_title": "Enter a title",
             "textContent_titleType": "h2",
@@ -166,6 +167,27 @@
           "name": "textContent_ctaText",
           "label": "CTA label",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "classes_ctaAlign",
+          "label": "CTA alignment",
+          "valueType": "string",
+          "value": "cta-align-left",
+          "options": [
+            {
+              "name": "Left",
+              "value": "cta-align-left"
+            },
+            {
+              "name": "Center",
+              "value": "cta-align-center"
+            },
+            {
+              "name": "Right",
+              "value": "cta-align-right"
+            }
+          ]
         },
         {
           "component": "tab",

@@ -4,37 +4,28 @@
   --teaser-text-color: var(--text-color);
 }
 
-/* Content rows (exclude image row) */
-.block.teaser > div:not(:has(picture, img)) > div {
+.block.teaser.text-color-red {
+  --teaser-text-color: #c00;
+}
+
+.block.teaser.text-color-blue {
+  --teaser-text-color: #00f;
+}
+
+.block.teaser.text-color-green {
+  --teaser-text-color: #080;
+}
+
+.block.teaser.text-color-red :is(p:not(.button-container), li),
+.block.teaser.text-color-blue :is(p:not(.button-container), li),
+.block.teaser.text-color-green :is(p:not(.button-container), li) {
   color: var(--teaser-text-color);
 }
 
-.block.teaser > div:not(:has(picture, img)) > div a:not(.button) {
+.block.teaser.text-color-red :is(p:not(.button-container), li) a:not(.button),
+.block.teaser.text-color-blue :is(p:not(.button-container), li) a:not(.button),
+.block.teaser.text-color-green :is(p:not(.button-container), li) a:not(.button) {
   color: inherit;
-}
-
-.block.teaser.title-align-left > div:not(:has(picture, img)) > div {
-  text-align: left;
-}
-
-.block.teaser.title-align-center > div:not(:has(picture, img)) > div {
-  text-align: center;
-}
-
-.block.teaser.title-align-right > div:not(:has(picture, img)) > div {
-  text-align: right;
-}
-
-.block.teaser.text-align-left > div:not(:has(picture, img)) > div {
-  text-align: left;
-}
-
-.block.teaser.text-align-center > div:not(:has(picture, img)) > div {
-  text-align: center;
-}
-
-.block.teaser.text-align-right > div:not(:has(picture, img)) > div {
-  text-align: right;
 }
 
 .block.teaser.title-align-left :is(h1, h2, h3, h4, h5, h6) {
@@ -49,14 +40,26 @@
   text-align: right;
 }
 
-.block.teaser.text-color-red {
-  --teaser-text-color: #c00;
+.block.teaser.text-align-left :is(p:not(.button-container), li) {
+  text-align: left;
 }
 
-.block.teaser.text-color-blue {
-  --teaser-text-color: #00f;
+.block.teaser.text-align-center :is(p:not(.button-container), li) {
+  text-align: center;
 }
 
-.block.teaser.text-color-green {
-  --teaser-text-color: #080;
+.block.teaser.text-align-right :is(p:not(.button-container), li) {
+  text-align: right;
+}
+
+.block.teaser.cta-align-left > div:has(> div .button-container) > div {
+  text-align: left;
+}
+
+.block.teaser.cta-align-center > div:has(> div .button-container) > div {
+  text-align: center;
+}
+
+.block.teaser.cta-align-right > div:has(> div .button-container) > div {
+  text-align: right;
 }
