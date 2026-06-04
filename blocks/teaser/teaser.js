@@ -21,7 +21,7 @@ function isDeliveryOrExternalUrl(src) {
 
 function readImageUrl(cell) {
   const link = cell.querySelector('a[href]');
-  if (link && isImageUrl(link.href)) {
+  if (link?.href && isImageUrl(link.href)) {
     return link.href;
   }
 
@@ -31,7 +31,7 @@ function readImageUrl(cell) {
   }
 
   const img = cell.querySelector('picture img, img');
-  if (img?.src && isImageUrl(img.src) && isDeliveryOrExternalUrl(img.src)) {
+  if (img?.src && isImageUrl(img.src)) {
     return img.src;
   }
 
@@ -68,7 +68,8 @@ function isAltOnlyRow(row) {
 
 function isImageRow(row) {
   const cell = row.querySelector(':scope > div');
-  if (!cell || cell.querySelector('.button-container, a.button')) return false;
+  if (!cell) return false;
+  // decorateButtons runs before teaser.js and may turn image links into .button
   return Boolean(cell.querySelector('picture') || readImageUrl(cell));
 }
 
@@ -132,8 +133,7 @@ function decorateImageRow(row, index) {
 
   const picture = buildPicture(src, alt);
   moveInstrumentation(cell, picture.querySelector('img'));
-  cell.textContent = '';
-  cell.append(picture);
+  cell.replaceChildren(picture);
 }
 
 export default function decorate(block) {
