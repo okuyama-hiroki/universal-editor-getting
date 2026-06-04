@@ -4,6 +4,39 @@
   --teaser-text-color: var(--text-color);
 }
 
+/* Content rows (exclude image row) */
+.block.teaser > div:not(:has(picture, img)) > div {
+  color: var(--teaser-text-color);
+}
+
+.block.teaser > div:not(:has(picture, img)) > div a:not(.button) {
+  color: inherit;
+}
+
+.block.teaser.title-align-left > div:not(:has(picture, img)) > div {
+  text-align: left;
+}
+
+.block.teaser.title-align-center > div:not(:has(picture, img)) > div {
+  text-align: center;
+}
+
+.block.teaser.title-align-right > div:not(:has(picture, img)) > div {
+  text-align: right;
+}
+
+.block.teaser.text-align-left > div:not(:has(picture, img)) > div {
+  text-align: left;
+}
+
+.block.teaser.text-align-center > div:not(:has(picture, img)) > div {
+  text-align: center;
+}
+
+.block.teaser.text-align-right > div:not(:has(picture, img)) > div {
+  text-align: right;
+}
+
 .block.teaser.title-align-left :is(h1, h2, h3, h4, h5, h6) {
   text-align: left;
 }
@@ -13,18 +46,6 @@
 }
 
 .block.teaser.title-align-right :is(h1, h2, h3, h4, h5, h6) {
-  text-align: right;
-}
-
-.block.teaser.text-align-left :is(p, li, a) {
-  text-align: left;
-}
-
-.block.teaser.text-align-center :is(p, li, a) {
-  text-align: center;
-}
-
-.block.teaser.text-align-right :is(p, li, a) {
   text-align: right;
 }
 
@@ -38,8 +59,4 @@
 
 .block.teaser.text-color-green {
   --teaser-text-color: #080;
-}
-
-.block.teaser :is(p, li, a:not(.button)) {
-  color: var(--teaser-text-color);
 }
