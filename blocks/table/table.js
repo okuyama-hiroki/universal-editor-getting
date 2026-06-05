@@ -1,6 +1,29 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+const METADATA_KEYS = new Set(['columns', 'rows', 'classes', 'options']);
+
+function isMetadataRow(row) {
+  const cells = [...row.children];
+  if (!cells.length) return true;
+
+  if (cells.length === 2) {
+    const key = cells[0].textContent.trim().toLowerCase();
+    if (METADATA_KEYS.has(key)) return true;
+  }
+
+  if (cells.length === 1) {
+    const value = cells[0].textContent.trim();
+    if (/^\d+$/.test(value) && cells[0].children.length === 0) return true;
+  }
+
+  return false;
+}
+
+function getDataRows(block) {
+  return [...block.children].filter((row) => !isMetadataRow(row));
+}
+
 function parseColumnCount(block) {
   const fromClass = [...block.classList]
     .map((cls) => cls.match(/^columns-(\d+)-cols$/)?.[1])
@@ -10,8 +33,9 @@ function parseColumnCount(block) {
   const config = readBlockConfig(block);
   if (config.columns) return parseInt(config.columns, 10);
 
-  const firstRow = block.querySelector(':scope > div');
-  if (firstRow?.children.length) return firstRow.children.length;
+  const dataRows = getDataRows(block);
+  const counts = dataRows.map((row) => row.children.length).filter(Boolean);
+  if (counts.length) return Math.max(...counts);
 
   return 1;
 }
@@ -26,14 +50,6 @@ function applyClasses(block) {
     .map((value) => value.trim())
     .filter(Boolean)
     .forEach((value) => block.classList.add(value));
-}
-
-function isMetadataRow(row) {
-  const cells = [...row.children];
-  if (cells.length !== 2) return false;
-
-  const key = cells[0].textContent.trim().toLowerCase();
-  return key === 'columns' || key === 'rows' || key === 'classes' || key === 'options';
 }
 
 function buildCell(cell, tagName) {
@@ -68,7 +84,7 @@ export default function decorate(block) {
   const columnCount = parseColumnCount(block);
   block.classList.add(`columns-${columnCount}-cols`);
 
-  const rows = [...block.children].filter((row) => !isMetadataRow(row));
+  const rows = getDataRows(block);
   const useHeaderRow = block.classList.contains('header-row');
 
   const table = document.createElement('table');
@@ -82,6 +98,8 @@ export default function decorate(block) {
     else tbody.append(tr);
     row.remove();
   });
+
+  [...block.children].forEach((row) => row.remove());
 
   if (thead.children.length) table.append(thead);
   if (tbody.children.length) table.append(tbody);
