@@ -9,22 +9,17 @@ function isMetadataRow(row) {
 
   if (cells.length === 2) {
     const key = cells[0].textContent.trim().toLowerCase();
-    if (METADATA_KEYS.has(key)) return true;
-  }
-
-  if (cells.length === 1) {
-    const value = cells[0].textContent.trim();
-    if (/^\d+$/.test(value) && cells[0].children.length === 0) return true;
+    return METADATA_KEYS.has(key);
   }
 
   return false;
 }
 
 function getDataRows(block) {
-  return [...block.children].filter((row) => !isMetadataRow(row));
+  return [...block.children].filter((row) => !isMetadataRow(row) && row.children.length);
 }
 
-function parseColumnCount(block) {
+function parseColumnCount(block, dataRows) {
   const fromClass = [...block.classList]
     .map((cls) => cls.match(/^columns-(\d+)-cols$/)?.[1])
     .find(Boolean);
@@ -33,7 +28,6 @@ function parseColumnCount(block) {
   const config = readBlockConfig(block);
   if (config.columns) return parseInt(config.columns, 10);
 
-  const dataRows = getDataRows(block);
   const counts = dataRows.map((row) => row.children.length).filter(Boolean);
   if (counts.length) return Math.max(...counts);
 
@@ -81,10 +75,10 @@ export default function decorate(block) {
   block.classList.add('table');
   applyClasses(block);
 
-  const columnCount = parseColumnCount(block);
+  const rows = getDataRows(block);
+  const columnCount = parseColumnCount(block, rows);
   block.classList.add(`columns-${columnCount}-cols`);
 
-  const rows = getDataRows(block);
   const useHeaderRow = block.classList.contains('header-row');
 
   const table = document.createElement('table');

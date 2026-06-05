@@ -52,16 +52,7 @@
   {
     "id": "table",
     "components": [
-      "table-cell"
-    ]
-  },
-  {
-    "id": "table-cell",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title"
+      "column"
     ]
   }
 ]

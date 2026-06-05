@@ -1,4 +1,13 @@
-export default function decorate(block) {
+import { loadCSS } from '../../scripts/aem.js';
+
+export default async function decorate(block) {
+  if (block.classList.contains('table')) {
+    await loadCSS(`${window.hlx.codeBasePath}/blocks/table/table.css`);
+    const { default: decorateTable } = await import('../table/table.js');
+    decorateTable(block);
+    return;
+  }
+
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
 

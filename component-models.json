@@ -266,14 +266,14 @@
         "component": "text",
         "valueType": "number",
         "name": "columns",
-        "value": "1",
+        "value": "",
         "label": "Columns"
       },
       {
         "component": "text",
         "valueType": "number",
         "name": "rows",
-        "value": "1",
+        "value": "",
         "label": "Rows"
       },
       {

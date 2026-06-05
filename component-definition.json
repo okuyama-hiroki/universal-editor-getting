@@ -210,9 +210,9 @@
               "page": {
                 "resourceType": "core/franklin/components/columns/v1/columns",
                 "template": {
+                  "name": "Table",
                   "columns": "1",
-                  "rows": "1",
-                  "filter": "table"
+                  "rows": "1"
                 }
               }
             }

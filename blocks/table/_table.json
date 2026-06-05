@@ -8,9 +8,9 @@
           "page": {
             "resourceType": "core/franklin/components/columns/v1/columns",
             "template": {
+              "name": "Table",
               "columns": "1",
-              "rows": "1",
-              "filter": "table"
+              "rows": "1"
             }
           }
         }
@@ -25,14 +25,14 @@
           "component": "text",
           "valueType": "number",
           "name": "columns",
-          "value": "1",
+          "value": "",
           "label": "Columns"
         },
         {
           "component": "text",
           "valueType": "number",
           "name": "rows",
-          "value": "1",
+          "value": "",
           "label": "Rows"
         },
         {
@@ -63,16 +63,7 @@
     {
       "id": "table",
       "components": [
-        "table-cell"
-      ]
-    },
-    {
-      "id": "table-cell",
-      "components": [
-        "text",
-        "image",
-        "button",
-        "title"
+        "column"
       ]
     }
   ]
