@@ -1,0 +1,47 @@
+.block.table {
+  width: 100%;
+}
+
+.block.table .table-scroll {
+  width: 100%;
+}
+
+.block.table table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.block.table :is(th, td) {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.block.table :is(th, td) :is(p, ul, ol, li) {
+  text-align: left;
+}
+
+.block.table :is(th, td) :is(img, .icon, [class*='icon-']) {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.block.table.bordered :is(th, td) {
+  border: 1px solid var(--light-color);
+}
+
+.block.table.striped tbody tr:nth-child(odd) {
+  background-color: var(--light-color);
+}
+
+@media (width < 900px) {
+  .block.table .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .block.table table {
+    min-width: min-content;
+  }
+}

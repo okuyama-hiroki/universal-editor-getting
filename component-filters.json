@@ -18,7 +18,8 @@
       "carousel",
       "columns",
       "fragment",
-      "teaser"
+      "teaser",
+      "table"
     ]
   },
   {
@@ -41,6 +42,21 @@
   },
   {
     "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "table",
+    "components": [
+      "table-cell"
+    ]
+  },
+  {
+    "id": "table-cell",
     "components": [
       "text",
       "image",

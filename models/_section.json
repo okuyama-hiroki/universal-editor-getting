@@ -53,7 +53,8 @@
         "carousel",
         "columns",
         "fragment",
-        "teaser"
+        "teaser",
+        "table"
       ]
     }
   ]
