@@ -263,18 +263,37 @@
     "id": "table",
     "fields": [
       {
-        "component": "text",
-        "valueType": "number",
+        "component": "select",
         "name": "columns",
+        "label": "Columns",
+        "valueType": "string",
         "value": "1",
-        "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "1",
-        "label": "Rows"
+        "options": [
+          {
+            "name": "1 column",
+            "value": "1"
+          },
+          {
+            "name": "2 columns",
+            "value": "2"
+          },
+          {
+            "name": "3 columns",
+            "value": "3"
+          },
+          {
+            "name": "4 columns",
+            "value": "4"
+          },
+          {
+            "name": "5 columns",
+            "value": "5"
+          },
+          {
+            "name": "6 columns",
+            "value": "6"
+          }
+        ]
       },
       {
         "component": "multiselect",
