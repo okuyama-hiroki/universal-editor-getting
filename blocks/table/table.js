@@ -16,11 +16,12 @@ function parseColumnCount(block) {
   return 1;
 }
 
-function applyOptionsClasses(block) {
+function applyClasses(block) {
   const config = readBlockConfig(block);
-  if (!config.options) return;
+  const classValues = config.classes || config.options;
+  if (!classValues) return;
 
-  config.options
+  classValues
     .split(',')
     .map((value) => value.trim())
     .filter(Boolean)
@@ -32,7 +33,7 @@ function isMetadataRow(row) {
   if (cells.length !== 2) return false;
 
   const key = cells[0].textContent.trim().toLowerCase();
-  return key === 'columns' || key === 'options';
+  return key === 'columns' || key === 'rows' || key === 'classes' || key === 'options';
 }
 
 function buildCell(cell, tagName) {
@@ -62,7 +63,7 @@ function buildRow(row, tagName, columnCount) {
 
 export default function decorate(block) {
   block.classList.add('table');
-  applyOptionsClasses(block);
+  applyClasses(block);
 
   const columnCount = parseColumnCount(block);
   block.classList.add(`columns-${columnCount}-cols`);
