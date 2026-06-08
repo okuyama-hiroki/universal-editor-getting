@@ -1,0 +1,39 @@
+.block.callout {
+  margin: 1rem 0;
+  padding: 16px 20px;
+  border-left: 4px solid var(--dark-color);
+  background-color: var(--light-color);
+}
+
+.block.callout.info {
+  border-left-color: var(--link-color);
+  background-color: #e8f0fe;
+}
+
+.block.callout.warning {
+  border-left-color: #e6a700;
+  background-color: #fff8e6;
+}
+
+.block.callout.success {
+  border-left-color: #2e7d32;
+  background-color: #e8f5e9;
+}
+
+.block.callout > div:first-child > div {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.block.callout > div:first-child:empty,
+.block.callout > div:first-child > div:empty {
+  display: none;
+}
+
+.block.callout > div:last-child > div :is(p, ul, ol) {
+  margin: 0;
+}
+
+.block.callout > div:last-child > div :is(p, ul, ol) + :is(p, ul, ol) {
+  margin-top: 0.5rem;
+}
