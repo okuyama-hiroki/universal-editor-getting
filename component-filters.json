@@ -56,9 +56,12 @@
     ]
   },
   {
-    "id": "table-row",
+    "id": "table-row-cells",
     "components": [
-      "column"
+      "text",
+      "image",
+      "button",
+      "title"
     ]
   }
 ]
