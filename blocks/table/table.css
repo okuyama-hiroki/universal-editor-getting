@@ -1,3 +1,34 @@
+.block.table > .columns.block {
+  width: 100%;
+}
+
+.block.table > .columns.block > div {
+  display: grid;
+  grid-template-columns: repeat(var(--table-columns, 1), minmax(0, 1fr));
+  gap: 0;
+  width: 100%;
+}
+
+.block.table.columns-2-cols > .columns.block > div {
+  --table-columns: 2;
+}
+
+.block.table.columns-3-cols > .columns.block > div {
+  --table-columns: 3;
+}
+
+.block.table.columns-4-cols > .columns.block > div {
+  --table-columns: 4;
+}
+
+.block.table.columns-5-cols > .columns.block > div {
+  --table-columns: 5;
+}
+
+.block.table.columns-6-cols > .columns.block > div {
+  --table-columns: 6;
+}
+
 .block.table {
   width: 100%;
 }

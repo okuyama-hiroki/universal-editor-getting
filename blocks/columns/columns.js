@@ -1,12 +1,4 @@
-export default async function decorate(block) {
-  if (block.classList.contains('table') || block.dataset.blockName === 'table') {
-    const { loadCSS } = await import('../../scripts/aem.js');
-    await loadCSS(`${window.hlx.codeBasePath}/blocks/table/table.css`);
-    const { default: decorateTable } = await import('../table/table.js');
-    decorateTable(block);
-    return;
-  }
-
+export default function decorate(block) {
   const firstRow = block.firstElementChild;
   if (!firstRow) return;
 

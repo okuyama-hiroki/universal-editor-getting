@@ -50,7 +50,13 @@
     ]
   },
   {
-    "id": "table",
+    "id": "table-rows",
+    "components": [
+      "table-row"
+    ]
+  },
+  {
+    "id": "table-row",
     "components": [
       "column"
     ]
