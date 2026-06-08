@@ -2,31 +2,18 @@ import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const METADATA_KEYS = new Set(['columns', 'rows', 'classes', 'options']);
-const COLUMN_COUNT_PATTERN = /^[1-6]$/;
 
 function isAuthoringEnvironment() {
   return document.querySelector('script[src*="editor-support.js"]') !== null;
 }
 
-function getCellText(cell) {
-  return cell.textContent.trim();
-}
-
-function isColumnCountCell(cell) {
-  return COLUMN_COUNT_PATTERN.test(getCellText(cell));
-}
-
-function isMetadataRow(row, configColumns) {
+function isMetadataRow(row) {
   const cells = [...row.children];
   if (!cells.length) return true;
 
   if (cells.length === 2) {
     const key = cells[0].textContent.trim().toLowerCase();
     return METADATA_KEYS.has(key);
-  }
-
-  if (cells.length === 1 && isColumnCountCell(cells[0])) {
-    return !configColumns || getCellText(cells[0]) === String(configColumns);
   }
 
   return false;
@@ -40,19 +27,32 @@ function getNestedRowBlocks(block) {
 }
 
 function getRowGrid(rowBlock) {
-  return rowBlock.querySelector(':scope > div');
+  const directCells = [...rowBlock.children].filter((child) => child.tagName === 'DIV');
+
+  if (directCells.length === 1 && directCells[0].children.length > 1) {
+    return directCells[0];
+  }
+
+  if (directCells.length > 1) {
+    return rowBlock;
+  }
+
+  return directCells[0] || null;
 }
 
-function collectRows(block, configColumns) {
+function collectRows(block) {
   const nestedRows = getNestedRowBlocks(block)
-    .map(getRowGrid)
+    .map((rowBlock) => {
+      rowBlock.classList.add('table-row');
+      return getRowGrid(rowBlock);
+    })
     .filter(Boolean);
 
   if (nestedRows.length) return nestedRows;
 
   return [...block.children].filter(
     (row) => !row.classList?.contains('table-scroll')
-      && !isMetadataRow(row, configColumns)
+      && !isMetadataRow(row)
       && row.children.length,
   );
 }
@@ -61,13 +61,13 @@ function parseColumnCount(block, dataRows) {
   const config = readBlockConfig(block);
   if (config.columns) return parseInt(config.columns, 10);
 
+  const counts = dataRows.map((row) => row.children.length).filter(Boolean);
+  if (counts.length) return Math.max(...counts);
+
   const fromClass = [...block.classList]
     .map((cls) => cls.match(/^columns-(\d+)-cols$/)?.[1])
     .find(Boolean);
   if (fromClass) return parseInt(fromClass, 10);
-
-  const counts = dataRows.map((row) => row.children.length).filter(Boolean);
-  if (counts.length) return Math.max(...counts);
 
   return 1;
 }
@@ -97,10 +97,10 @@ function buildRow(row, tagName, columnCount) {
   return tr;
 }
 
-function removeMetadataRows(block, configColumns) {
+function removeMetadataRows(block) {
   [...block.children].forEach((row) => {
     if (row.classList?.contains('table-scroll')) return;
-    if (isMetadataRow(row, configColumns)) row.remove();
+    if (isMetadataRow(row)) row.remove();
   });
 }
 
@@ -125,7 +125,7 @@ function convertToTable(block, rows, columnCount) {
   if (tbody.children.length) table.append(tbody);
 
   removeNestedRowBlocks(block);
-  removeMetadataRows(block, readBlockConfig(block).columns);
+  removeMetadataRows(block);
   [...block.children].forEach((row) => {
     if (!row.classList?.contains('table-scroll')) row.remove();
   });
@@ -139,10 +139,9 @@ function convertToTable(block, rows, columnCount) {
 export default function decorate(block) {
   block.classList.add('table');
 
-  const config = readBlockConfig(block);
-  removeMetadataRows(block, config.columns);
+  removeMetadataRows(block);
 
-  const rows = collectRows(block, config.columns);
+  const rows = collectRows(block);
   const columnCount = parseColumnCount(block, rows);
 
   block.classList.remove(...[...block.classList].filter((cls) => /^columns-\d+-cols$/.test(cls)));

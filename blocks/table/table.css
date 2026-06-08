@@ -1,36 +1,47 @@
-.block.table > .columns.block {
+.block.table {
   width: 100%;
 }
 
-.block.table > .columns.block > div {
+.block.table > .columns.block,
+.block.table > .table-row,
+.block.table > [data-aue-component='table-row'] {
+  width: 100%;
+}
+
+.block.table > .columns.block > div,
+.block.table > .table-row,
+.block.table > [data-aue-component='table-row'] {
   display: grid;
   grid-template-columns: repeat(var(--table-columns, 1), minmax(0, 1fr));
   gap: 0;
   width: 100%;
 }
 
-.block.table.columns-2-cols > .columns.block > div {
+.block.table.columns-2-cols {
   --table-columns: 2;
 }
 
-.block.table.columns-3-cols > .columns.block > div {
+.block.table.columns-3-cols {
   --table-columns: 3;
 }
 
-.block.table.columns-4-cols > .columns.block > div {
+.block.table.columns-4-cols {
   --table-columns: 4;
 }
 
-.block.table.columns-5-cols > .columns.block > div {
+.block.table.columns-5-cols {
   --table-columns: 5;
 }
 
-.block.table.columns-6-cols > .columns.block > div {
+.block.table.columns-6-cols {
   --table-columns: 6;
 }
 
-.block.table {
-  width: 100%;
+.block.table.bordered > .table-row > div,
+.block.table.bordered > [data-aue-component='table-row'] > div,
+.block.table.bordered > .columns.block > div > div {
+  border: 1px solid var(--light-color);
+  padding: 12px 16px;
 }
 
 .block.table .table-scroll {
@@ -63,6 +74,11 @@
 }
 
 .block.table.striped tbody tr:nth-child(odd) {
+  background-color: var(--light-color);
+}
+
+.block.table.striped > .table-row:nth-child(odd),
+.block.table.striped > [data-aue-component='table-row']:nth-child(odd) {
   background-color: var(--light-color);
 }
 
