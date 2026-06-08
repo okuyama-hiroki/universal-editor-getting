@@ -609,7 +609,8 @@ async function loadBlock(block) {
  * @param {Element} block The block element
  */
 function decorateBlock(block) {
-  const shortBlockName = block.classList[0];
+  const aueComponent = block.getAttribute('data-aue-component');
+  const shortBlockName = aueComponent === 'table' ? 'table' : block.classList[0];
   if (shortBlockName && !block.dataset.blockStatus) {
     block.classList.add('block');
     block.dataset.blockName = shortBlockName;

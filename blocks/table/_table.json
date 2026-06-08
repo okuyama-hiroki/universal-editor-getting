@@ -8,7 +8,6 @@
           "page": {
             "resourceType": "core/franklin/components/columns/v1/columns",
             "template": {
-              "name": "Table",
               "columns": "1",
               "rows": "1"
             }
@@ -36,22 +35,52 @@
           "label": "Rows"
         },
         {
-          "component": "multiselect",
-          "name": "classes",
-          "label": "Options",
+          "component": "select",
+          "name": "classes_header-row",
+          "label": "Header row",
           "valueType": "string",
           "value": "",
           "options": [
             {
-              "name": "Header row",
+              "name": "No",
+              "value": ""
+            },
+            {
+              "name": "Yes",
               "value": "header-row"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_striped",
+          "label": "Striped",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "No",
+              "value": ""
             },
             {
-              "name": "Striped",
+              "name": "Yes",
               "value": "striped"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_bordered",
+          "label": "Bordered",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "No",
+              "value": ""
             },
             {
-              "name": "Bordered",
+              "name": "Yes",
               "value": "bordered"
             }
           ]

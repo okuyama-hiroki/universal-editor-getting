@@ -2,8 +2,32 @@ import { readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const METADATA_KEYS = new Set(['columns', 'rows', 'classes', 'options']);
+const COLUMN_COUNT_PATTERN = /^[1-6]$/;
 
-function isMetadataRow(row) {
+function isAuthoringEnvironment() {
+  return document.querySelector('script[src*="editor-support.js"]') !== null;
+}
+
+function getCellText(cell) {
+  return cell.textContent.trim();
+}
+
+function isColumnCountCell(cell) {
+  return COLUMN_COUNT_PATTERN.test(getCellText(cell));
+}
+
+function getColumnCountArtifact(block) {
+  const artifactRow = [...block.children].find((row) => {
+    if (row.classList?.contains('table-scroll')) return false;
+    const cells = [...row.children];
+    return cells.length === 1 && isColumnCountCell(cells[0]);
+  });
+
+  if (!artifactRow) return null;
+  return parseInt(getCellText(artifactRow.children[0]), 10);
+}
+
+function isMetadataRow(row, configColumns) {
   const cells = [...row.children];
   if (!cells.length) return true;
 
@@ -12,14 +36,24 @@ function isMetadataRow(row) {
     return METADATA_KEYS.has(key);
   }
 
+  if (cells.length === 1 && isColumnCountCell(cells[0])) {
+    return !configColumns || getCellText(cells[0]) === String(configColumns);
+  }
+
   return false;
 }
 
-function getDataRows(block) {
-  return [...block.children].filter((row) => !isMetadataRow(row) && row.children.length);
+function getDataRows(block, configColumns) {
+  return [...block.children].filter(
+    (row) => !row.classList?.contains('table-scroll')
+      && !isMetadataRow(row, configColumns)
+      && row.children.length,
+  );
 }
 
-function parseColumnCount(block, dataRows) {
+function parseColumnCount(block, dataRows, artifactColumns) {
+  if (artifactColumns) return artifactColumns;
+
   const fromClass = [...block.classList]
     .map((cls) => cls.match(/^columns-(\d+)-cols$/)?.[1])
     .find(Boolean);
@@ -32,18 +66,6 @@ function parseColumnCount(block, dataRows) {
   if (counts.length) return Math.max(...counts);
 
   return 1;
-}
-
-function applyClasses(block) {
-  const config = readBlockConfig(block);
-  const classValues = config.classes || config.options;
-  if (!classValues) return;
-
-  classValues
-    .split(',')
-    .map((value) => value.trim())
-    .filter(Boolean)
-    .forEach((value) => block.classList.add(value));
 }
 
 function buildCell(cell, tagName) {
@@ -71,16 +93,15 @@ function buildRow(row, tagName, columnCount) {
   return tr;
 }
 
-export default function decorate(block) {
-  block.classList.add('table');
-  applyClasses(block);
+function removeMetadataRows(block, configColumns) {
+  [...block.children].forEach((row) => {
+    if (row.classList?.contains('table-scroll')) return;
+    if (isMetadataRow(row, configColumns)) row.remove();
+  });
+}
 
-  const rows = getDataRows(block);
-  const columnCount = parseColumnCount(block, rows);
-  block.classList.add(`columns-${columnCount}-cols`);
-
+function convertToTable(block, rows, columnCount) {
   const useHeaderRow = block.classList.contains('header-row');
-
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
@@ -93,7 +114,9 @@ export default function decorate(block) {
     row.remove();
   });
 
-  [...block.children].forEach((row) => row.remove());
+  [...block.children].forEach((row) => {
+    if (!row.classList?.contains('table-scroll')) row.remove();
+  });
 
   if (thead.children.length) table.append(thead);
   if (tbody.children.length) table.append(tbody);
@@ -102,4 +125,27 @@ export default function decorate(block) {
   wrapper.className = 'table-scroll';
   wrapper.append(table);
   block.append(wrapper);
+}
+
+export default function decorate(block) {
+  block.classList.add('table');
+
+  const config = readBlockConfig(block);
+  const artifactColumns = getColumnCountArtifact(block);
+  const columnCount = parseColumnCount(block, getDataRows(block, config.columns), artifactColumns);
+
+  block.classList.remove(...[...block.classList].filter((cls) => /^columns-\d+-cols$/.test(cls)));
+  block.classList.add(`columns-${columnCount}-cols`);
+
+  removeMetadataRows(block, config.columns);
+
+  const rows = getDataRows(block, config.columns);
+
+  if (isAuthoringEnvironment()) {
+    return;
+  }
+
+  if (!rows.length) return;
+
+  convertToTable(block, rows, columnCount);
 }
