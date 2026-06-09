@@ -11,12 +11,12 @@
 }
 
 .block.callout.warning {
-  border-left-color: #e6a700;
+  border-left-color: #e61700;
   background-color: #fff8e6;
 }
 
 .block.callout.success {
-  border-left-color: #2e7d32;
+  border-left-color: #2e607d;
   background-color: #e8f5e9;
 }
 
