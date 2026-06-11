@@ -92,6 +92,13 @@ function applyRowLayout(block, columnCount) {
   getNestedRowBlocks(block).forEach((rowBlock) => {
     rowBlock.classList.add('table-row');
     syncColumnLayout(rowBlock, columnCount);
+
+    const grid = getRowGrid(rowBlock);
+    if (!grid) return;
+
+    [...grid.children].forEach((cell, index) => {
+      cell.classList.toggle('table-cell-hidden', index >= columnCount);
+    });
   });
 }
 
@@ -107,7 +114,9 @@ function buildCell(cell, tagName) {
 
 function buildRow(row, tagName, columnCount) {
   const tr = document.createElement('tr');
-  const cells = [...row.children];
+  const cells = [...row.children]
+    .filter((cell) => !cell.classList.contains('table-cell-hidden'))
+    .slice(0, columnCount);
 
   cells.forEach((cell) => {
     tr.append(buildCell(cell, tagName));
@@ -171,6 +180,7 @@ export default function decorate(block) {
   applyRowLayout(block, columnCount);
 
   if (isAuthoringEnvironment()) {
+    block.classList.add('table-editing');
     return;
   }
 

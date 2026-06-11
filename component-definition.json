@@ -247,7 +247,13 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Table Row",
-                  "filter": "table-row-cells"
+                  "model": "table-row",
+                  "col1": "<p></p>",
+                  "col2": "<p></p>",
+                  "col3": "<p></p>",
+                  "col4": "<p></p>",
+                  "col5": "<p></p>",
+                  "col6": "<p></p>"
                 }
               }
             }
