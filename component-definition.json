@@ -231,7 +231,8 @@
                   "name": "Table",
                   "model": "table",
                   "key-value": true,
-                  "filter": "table-rows"
+                  "filter": "table-rows",
+                  "classes_cols": "columns-1-cols"
                 }
               }
             }

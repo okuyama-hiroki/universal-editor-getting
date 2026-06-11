@@ -57,17 +57,22 @@ function collectRows(block) {
   );
 }
 
+function getColumnCountFromClass(element) {
+  const match = [...element.classList]
+    .map((cls) => cls.match(/^columns-(\d+)-cols$/)?.[1])
+    .find(Boolean);
+  return match ? parseInt(match, 10) : null;
+}
+
 function parseColumnCount(block, dataRows) {
+  const fromClass = getColumnCountFromClass(block);
+  if (fromClass) return fromClass;
+
   const config = readBlockConfig(block);
   if (config.columns) return parseInt(config.columns, 10);
 
   const counts = dataRows.map((row) => row.children.length).filter(Boolean);
   if (counts.length) return Math.max(...counts);
-
-  const fromClass = [...block.classList]
-    .map((cls) => cls.match(/^columns-(\d+)-cols$/)?.[1])
-    .find(Boolean);
-  if (fromClass) return parseInt(fromClass, 10);
 
   return 1;
 }
@@ -144,8 +149,9 @@ export default function decorate(block) {
   const rows = collectRows(block);
   const columnCount = parseColumnCount(block, rows);
 
-  block.classList.remove(...[...block.classList].filter((cls) => /^columns-\d+-cols$/.test(cls)));
-  block.classList.add(`columns-${columnCount}-cols`);
+  if (!getColumnCountFromClass(block)) {
+    block.classList.add(`columns-${columnCount}-cols`);
+  }
 
   if (isAuthoringEnvironment()) {
     return;

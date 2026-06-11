@@ -308,34 +308,34 @@
     "fields": [
       {
         "component": "select",
-        "name": "columns",
+        "name": "classes_cols",
         "label": "Columns",
         "valueType": "string",
-        "value": "1",
+        "value": "columns-1-cols",
         "options": [
           {
             "name": "1 column",
-            "value": "1"
+            "value": "columns-1-cols"
           },
           {
             "name": "2 columns",
-            "value": "2"
+            "value": "columns-2-cols"
           },
           {
             "name": "3 columns",
-            "value": "3"
+            "value": "columns-3-cols"
           },
           {
             "name": "4 columns",
-            "value": "4"
+            "value": "columns-4-cols"
           },
           {
             "name": "5 columns",
-            "value": "5"
+            "value": "columns-5-cols"
           },
           {
             "name": "6 columns",
-            "value": "6"
+            "value": "columns-6-cols"
           }
         ]
       },
