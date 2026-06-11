@@ -34,6 +34,11 @@
   display: none !important;
 }
 
+.block.table > [data-aue-component='table-row'] > .table-cell-image + .table-cell-text,
+.block.table > .table-row > .table-cell-image + .table-cell-text {
+  margin-top: 0.5rem;
+}
+
 /* UE 編集時: 表全体・セル枠をはっきり表示 */
 .block.table.table-editing {
   border: 2px solid var(--dark-color);
