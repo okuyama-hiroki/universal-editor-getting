@@ -30,6 +30,10 @@
   display: none !important;
 }
 
+.block.table .table-row-metadata {
+  display: none !important;
+}
+
 /* UE 編集時: 表全体・セル枠をはっきり表示 */
 .block.table.table-editing {
   border: 2px solid var(--dark-color);
