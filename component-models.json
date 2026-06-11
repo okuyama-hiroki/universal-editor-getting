@@ -422,27 +422,6 @@
         "value": ""
       },
       {
-        "component": "select",
-        "name": "col1_align",
-        "label": "Alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
-      },
-      {
         "component": "tab",
         "label": "Column 2",
         "name": "tab-col2"
@@ -467,27 +446,6 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
-      },
-      {
-        "component": "select",
-        "name": "col2_align",
-        "label": "Alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
       },
       {
         "component": "tab",
@@ -516,27 +474,6 @@
         "value": ""
       },
       {
-        "component": "select",
-        "name": "col3_align",
-        "label": "Alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
-      },
-      {
         "component": "tab",
         "label": "Column 4",
         "name": "tab-col4"
@@ -561,27 +498,6 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
-      },
-      {
-        "component": "select",
-        "name": "col4_align",
-        "label": "Alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
       },
       {
         "component": "tab",
@@ -610,27 +526,6 @@
         "value": ""
       },
       {
-        "component": "select",
-        "name": "col5_align",
-        "label": "Alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
-      },
-      {
         "component": "tab",
         "label": "Column 6",
         "name": "tab-col6"
@@ -655,27 +550,6 @@
         "label": "Text",
         "valueType": "string",
         "value": ""
-      },
-      {
-        "component": "select",
-        "name": "col6_align",
-        "label": "Alignment",
-        "valueType": "string",
-        "value": "left",
-        "options": [
-          {
-            "name": "Left",
-            "value": "left"
-          },
-          {
-            "name": "Center",
-            "value": "center"
-          },
-          {
-            "name": "Right",
-            "value": "right"
-          }
-        ]
       }
     ]
   },

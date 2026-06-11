@@ -32,6 +32,17 @@ function isAlignValue(text) {
   return ALIGN_VALUES.has(text.toLowerCase());
 }
 
+function isLegacyAlignRow(row) {
+  const prop = getFieldProp(row);
+  if (prop?.endsWith('_align')) return true;
+
+  if (row.querySelector('[data-aue-type="richtext"], [data-richtext-model], picture, img')) {
+    return false;
+  }
+
+  return isAlignValue(getRowText(row));
+}
+
 function isMetadataProp(prop) {
   if (!prop) return false;
   if (prop === 'columns' || METADATA_KEYS.has(prop)) return true;
@@ -44,12 +55,13 @@ function isContentProp(prop) {
 
 function isMetadataRow(row) {
   if (row.classList.contains('table-row-metadata')) return true;
+  if (isLegacyAlignRow(row)) return true;
 
   const prop = getFieldProp(row);
   if (isMetadataProp(prop)) return true;
 
   const text = getRowText(row).toLowerCase();
-  if (isColumnsValue(text) || isAlignValue(text)) return true;
+  if (isColumnsValue(text)) return true;
 
   const legacyText = row.textContent.trim();
   return legacyText.includes('columns-') && legacyText.includes('col1-align');
@@ -66,6 +78,7 @@ function hideMetadataRows(rowBlock) {
   [...rowBlock.children].forEach((row) => {
     if (isMetadataRow(row)) {
       row.classList.add('table-row-metadata');
+      row.style.display = 'none';
     }
   });
 }
@@ -83,17 +96,6 @@ function readRowConfig(rowBlock) {
     if (columnsRow) {
       const value = getRowText(columnsRow).match(/^[1-6]$/)?.[0];
       if (value) config.columns = value;
-    }
-  }
-
-  for (let col = 1; col <= MAX_COLUMNS; col += 1) {
-    const key = `col${col}_align`;
-    if (!config[key]) {
-      const alignRow = [...rowBlock.children].find((row) => getFieldProp(row) === key);
-      if (alignRow) {
-        const align = getRowText(alignRow).toLowerCase();
-        if (isAlignValue(align)) config[key] = align;
-      }
     }
   }
 
@@ -122,14 +124,9 @@ function parseRowColumnCount(rowBlock, config) {
   return 1;
 }
 
-function getColumnAlign(config, columnIndex) {
-  const align = config[`col${columnIndex}_align`];
-  if (align === 'center' || align === 'right') return align;
-  return 'left';
-}
-
 function getContentRows(rowBlock) {
   return [...rowBlock.children].filter((row) => {
+    if (isMetadataRow(row)) return false;
     const prop = getFieldProp(row);
     return isContentProp(prop);
   });
@@ -169,20 +166,7 @@ function syncColumnLayout(element, columnCount) {
   element.style.setProperty('--table-columns', columnCount);
 }
 
-function applyCellAlignment(element, align) {
-  element.classList.remove(
-    'table-cell-align-left',
-    'table-cell-align-center',
-    'table-cell-align-right',
-  );
-  element.classList.add(`table-cell-align-${align}`);
-  element.style.textAlign = align;
-  element.querySelectorAll(':scope > div, :scope p, :scope [data-aue-type="richtext"]').forEach((child) => {
-    child.style.textAlign = align;
-  });
-}
-
-function layoutRowCells(rowBlock, columnCount, config) {
+function layoutRowCells(rowBlock, columnCount) {
   syncColumnLayout(rowBlock, columnCount);
   hideMetadataRows(rowBlock);
 
@@ -192,7 +176,6 @@ function layoutRowCells(rowBlock, columnCount, config) {
     if (!col) return;
 
     const hidden = col > columnCount;
-    const align = getColumnAlign(config, col);
     const type = prop.endsWith('_image') ? 'image' : 'text';
 
     row.classList.toggle('table-cell-hidden', hidden);
@@ -207,7 +190,6 @@ function layoutRowCells(rowBlock, columnCount, config) {
 
     row.style.gridColumn = String(col);
     row.style.gridRow = '1';
-    applyCellAlignment(row, align);
   });
 
   rowBlock.style.display = 'grid';
@@ -217,8 +199,8 @@ function layoutRowCells(rowBlock, columnCount, config) {
 }
 
 function applyRowLayout(rowDataList) {
-  rowDataList.forEach(({ rowBlock, columnCount, config }) => {
-    layoutRowCells(rowBlock, columnCount, config);
+  rowDataList.forEach(({ rowBlock, columnCount }) => {
+    layoutRowCells(rowBlock, columnCount);
   });
 }
 
@@ -248,7 +230,7 @@ function appendFieldContent(target, field) {
   while (field.firstChild) target.append(field.firstChild);
 }
 
-function buildRow(rowBlock, tagName, columnCount, maxColumnCount, config) {
+function buildRow(rowBlock, tagName, columnCount, maxColumnCount) {
   const tr = document.createElement('tr');
 
   for (let col = 1; col <= columnCount; col += 1) {
@@ -259,8 +241,6 @@ function buildRow(rowBlock, tagName, columnCount, maxColumnCount, config) {
     const text = getColumnField(rowBlock, col, 'text');
     appendFieldContent(cell, image);
     appendFieldContent(cell, text);
-
-    applyCellAlignment(cell, getColumnAlign(config, col));
     tr.append(cell);
   }
 
@@ -289,11 +269,11 @@ function convertToTable(block, rowDataList) {
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
 
-  rowDataList.forEach(({ rowBlock, columnCount, config }, index) => {
+  rowDataList.forEach(({ rowBlock, columnCount }, index) => {
     rowBlock.querySelectorAll('.table-row-metadata').forEach((row) => row.remove());
     optimizeImages(rowBlock);
     const isHeader = useHeaderRow && index === 0;
-    const tr = buildRow(rowBlock, isHeader ? 'th' : 'td', columnCount, maxColumnCount, config);
+    const tr = buildRow(rowBlock, isHeader ? 'th' : 'td', columnCount, maxColumnCount);
     if (isHeader) thead.append(tr);
     else tbody.append(tr);
   });
