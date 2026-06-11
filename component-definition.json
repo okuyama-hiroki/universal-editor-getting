@@ -231,8 +231,7 @@
                   "name": "Table",
                   "model": "table",
                   "key-value": true,
-                  "filter": "table-rows",
-                  "classes_cols": "columns-1-cols"
+                  "filter": "table-rows"
                 }
               }
             }
@@ -248,12 +247,19 @@
                 "template": {
                   "name": "Table Row",
                   "model": "table-row",
-                  "col1": "<p></p>",
-                  "col2": "<p></p>",
-                  "col3": "<p></p>",
-                  "col4": "<p></p>",
-                  "col5": "<p></p>",
-                  "col6": "<p></p>"
+                  "classes_cols": "columns-1-cols",
+                  "classes_col1Align": "col1-align-left",
+                  "classes_col2Align": "col2-align-left",
+                  "classes_col3Align": "col3-align-left",
+                  "classes_col4Align": "col4-align-left",
+                  "classes_col5Align": "col5-align-left",
+                  "classes_col6Align": "col6-align-left",
+                  "col1_text": "<p></p>",
+                  "col2_text": "<p></p>",
+                  "col3_text": "<p></p>",
+                  "col4_text": "<p></p>",
+                  "col5_text": "<p></p>",
+                  "col6_text": "<p></p>"
                 }
               }
             }

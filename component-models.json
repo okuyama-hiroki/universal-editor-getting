@@ -308,39 +308,6 @@
     "fields": [
       {
         "component": "select",
-        "name": "classes_cols",
-        "label": "Columns",
-        "valueType": "string",
-        "value": "columns-1-cols",
-        "options": [
-          {
-            "name": "1 column",
-            "value": "columns-1-cols"
-          },
-          {
-            "name": "2 columns",
-            "value": "columns-2-cols"
-          },
-          {
-            "name": "3 columns",
-            "value": "columns-3-cols"
-          },
-          {
-            "name": "4 columns",
-            "value": "columns-4-cols"
-          },
-          {
-            "name": "5 columns",
-            "value": "columns-5-cols"
-          },
-          {
-            "name": "6 columns",
-            "value": "columns-6-cols"
-          }
-        ]
-      },
-      {
-        "component": "select",
         "name": "classes_header-row",
         "label": "Header row",
         "valueType": "string",
@@ -396,46 +363,319 @@
     "id": "table-row",
     "fields": [
       {
-        "component": "richtext",
-        "name": "col1",
+        "component": "select",
+        "name": "classes_cols",
+        "label": "Columns",
+        "valueType": "string",
+        "value": "columns-1-cols",
+        "options": [
+          {
+            "name": "1 column",
+            "value": "columns-1-cols"
+          },
+          {
+            "name": "2 columns",
+            "value": "columns-2-cols"
+          },
+          {
+            "name": "3 columns",
+            "value": "columns-3-cols"
+          },
+          {
+            "name": "4 columns",
+            "value": "columns-4-cols"
+          },
+          {
+            "name": "5 columns",
+            "value": "columns-5-cols"
+          },
+          {
+            "name": "6 columns",
+            "value": "columns-6-cols"
+          }
+        ]
+      },
+      {
+        "component": "tab",
         "label": "Column 1",
+        "name": "tab-col1"
+      },
+      {
+        "component": "reference",
+        "name": "col1_image",
+        "label": "Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "col1_imageAlt",
+        "label": "Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
-        "name": "col2",
+        "name": "col1_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_col1Align",
+        "label": "Alignment",
+        "valueType": "string",
+        "value": "col1-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "col1-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "col1-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "col1-align-right"
+          }
+        ]
+      },
+      {
+        "component": "tab",
         "label": "Column 2",
+        "name": "tab-col2"
+      },
+      {
+        "component": "reference",
+        "name": "col2_image",
+        "label": "Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "col2_imageAlt",
+        "label": "Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
-        "name": "col3",
+        "name": "col2_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_col2Align",
+        "label": "Alignment",
+        "valueType": "string",
+        "value": "col2-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "col2-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "col2-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "col2-align-right"
+          }
+        ]
+      },
+      {
+        "component": "tab",
         "label": "Column 3",
+        "name": "tab-col3"
+      },
+      {
+        "component": "reference",
+        "name": "col3_image",
+        "label": "Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "col3_imageAlt",
+        "label": "Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
-        "name": "col4",
+        "name": "col3_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_col3Align",
+        "label": "Alignment",
+        "valueType": "string",
+        "value": "col3-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "col3-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "col3-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "col3-align-right"
+          }
+        ]
+      },
+      {
+        "component": "tab",
         "label": "Column 4",
+        "name": "tab-col4"
+      },
+      {
+        "component": "reference",
+        "name": "col4_image",
+        "label": "Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "col4_imageAlt",
+        "label": "Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
-        "name": "col5",
+        "name": "col4_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_col4Align",
+        "label": "Alignment",
+        "valueType": "string",
+        "value": "col4-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "col4-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "col4-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "col4-align-right"
+          }
+        ]
+      },
+      {
+        "component": "tab",
         "label": "Column 5",
+        "name": "tab-col5"
+      },
+      {
+        "component": "reference",
+        "name": "col5_image",
+        "label": "Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "col5_imageAlt",
+        "label": "Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
-        "name": "col6",
-        "label": "Column 6",
+        "name": "col5_text",
+        "label": "Text",
         "valueType": "string",
         "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_col5Align",
+        "label": "Alignment",
+        "valueType": "string",
+        "value": "col5-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "col5-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "col5-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "col5-align-right"
+          }
+        ]
+      },
+      {
+        "component": "tab",
+        "label": "Column 6",
+        "name": "tab-col6"
+      },
+      {
+        "component": "reference",
+        "name": "col6_image",
+        "label": "Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "col6_imageAlt",
+        "label": "Image Alt",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "col6_text",
+        "label": "Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes_col6Align",
+        "label": "Alignment",
+        "valueType": "string",
+        "value": "col6-align-left",
+        "options": [
+          {
+            "name": "Left",
+            "value": "col6-align-left"
+          },
+          {
+            "name": "Center",
+            "value": "col6-align-center"
+          },
+          {
+            "name": "Right",
+            "value": "col6-align-right"
+          }
+        ]
       }
     ]
   },
