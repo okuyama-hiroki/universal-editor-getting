@@ -247,14 +247,8 @@
                 "template": {
                   "name": "Table Row",
                   "model": "table-row",
-                  "key-value": true,
                   "columns": "1",
-                  "col1_text": "<p></p>",
-                  "col2_text": "<p></p>",
-                  "col3_text": "<p></p>",
-                  "col4_text": "<p></p>",
-                  "col5_text": "<p></p>",
-                  "col6_text": "<p></p>"
+                  "col1_text": "<p></p>"
                 }
               }
             }

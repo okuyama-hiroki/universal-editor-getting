@@ -396,158 +396,128 @@
         ]
       },
       {
-        "component": "tab",
-        "label": "Column 1",
-        "name": "tab-col1"
-      },
-      {
         "component": "reference",
         "name": "col1_image",
-        "label": "Image",
+        "label": "Column 1 Image",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
         "name": "col1_imageAlt",
-        "label": "Image Alt",
+        "label": "Column 1 Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col1_text",
-        "label": "Text",
+        "label": "Column 1 Text",
         "valueType": "string",
         "value": ""
       },
       {
-        "component": "tab",
-        "label": "Column 2",
-        "name": "tab-col2"
-      },
-      {
         "component": "reference",
         "name": "col2_image",
-        "label": "Image",
+        "label": "Column 2 Image",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
         "name": "col2_imageAlt",
-        "label": "Image Alt",
+        "label": "Column 2 Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col2_text",
-        "label": "Text",
+        "label": "Column 2 Text",
         "valueType": "string",
         "value": ""
       },
       {
-        "component": "tab",
-        "label": "Column 3",
-        "name": "tab-col3"
-      },
-      {
         "component": "reference",
         "name": "col3_image",
-        "label": "Image",
+        "label": "Column 3 Image",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
         "name": "col3_imageAlt",
-        "label": "Image Alt",
+        "label": "Column 3 Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col3_text",
-        "label": "Text",
+        "label": "Column 3 Text",
         "valueType": "string",
         "value": ""
       },
       {
-        "component": "tab",
-        "label": "Column 4",
-        "name": "tab-col4"
-      },
-      {
         "component": "reference",
         "name": "col4_image",
-        "label": "Image",
+        "label": "Column 4 Image",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
         "name": "col4_imageAlt",
-        "label": "Image Alt",
+        "label": "Column 4 Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col4_text",
-        "label": "Text",
+        "label": "Column 4 Text",
         "valueType": "string",
         "value": ""
       },
       {
-        "component": "tab",
-        "label": "Column 5",
-        "name": "tab-col5"
-      },
-      {
         "component": "reference",
         "name": "col5_image",
-        "label": "Image",
+        "label": "Column 5 Image",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
         "name": "col5_imageAlt",
-        "label": "Image Alt",
+        "label": "Column 5 Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col5_text",
-        "label": "Text",
+        "label": "Column 5 Text",
         "valueType": "string",
         "value": ""
       },
       {
-        "component": "tab",
-        "label": "Column 6",
-        "name": "tab-col6"
-      },
-      {
         "component": "reference",
         "name": "col6_image",
-        "label": "Image",
+        "label": "Column 6 Image",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
         "name": "col6_imageAlt",
-        "label": "Image Alt",
+        "label": "Column 6 Image Alt",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col6_text",
-        "label": "Text",
+        "label": "Column 6 Text",
         "valueType": "string",
         "value": ""
       }
