@@ -364,34 +364,34 @@
     "fields": [
       {
         "component": "select",
-        "name": "classes_cols",
+        "name": "columns",
         "label": "Columns",
         "valueType": "string",
-        "value": "columns-1-cols",
+        "value": "1",
         "options": [
           {
             "name": "1 column",
-            "value": "columns-1-cols"
+            "value": "1"
           },
           {
             "name": "2 columns",
-            "value": "columns-2-cols"
+            "value": "2"
           },
           {
             "name": "3 columns",
-            "value": "columns-3-cols"
+            "value": "3"
           },
           {
             "name": "4 columns",
-            "value": "columns-4-cols"
+            "value": "4"
           },
           {
             "name": "5 columns",
-            "value": "columns-5-cols"
+            "value": "5"
           },
           {
             "name": "6 columns",
-            "value": "columns-6-cols"
+            "value": "6"
           }
         ]
       },
@@ -423,22 +423,22 @@
       },
       {
         "component": "select",
-        "name": "classes_col1Align",
+        "name": "col1_align",
         "label": "Alignment",
         "valueType": "string",
-        "value": "col1-align-left",
+        "value": "left",
         "options": [
           {
             "name": "Left",
-            "value": "col1-align-left"
+            "value": "left"
           },
           {
             "name": "Center",
-            "value": "col1-align-center"
+            "value": "center"
           },
           {
             "name": "Right",
-            "value": "col1-align-right"
+            "value": "right"
           }
         ]
       },
@@ -470,22 +470,22 @@
       },
       {
         "component": "select",
-        "name": "classes_col2Align",
+        "name": "col2_align",
         "label": "Alignment",
         "valueType": "string",
-        "value": "col2-align-left",
+        "value": "left",
         "options": [
           {
             "name": "Left",
-            "value": "col2-align-left"
+            "value": "left"
           },
           {
             "name": "Center",
-            "value": "col2-align-center"
+            "value": "center"
           },
           {
             "name": "Right",
-            "value": "col2-align-right"
+            "value": "right"
           }
         ]
       },
@@ -517,22 +517,22 @@
       },
       {
         "component": "select",
-        "name": "classes_col3Align",
+        "name": "col3_align",
         "label": "Alignment",
         "valueType": "string",
-        "value": "col3-align-left",
+        "value": "left",
         "options": [
           {
             "name": "Left",
-            "value": "col3-align-left"
+            "value": "left"
           },
           {
             "name": "Center",
-            "value": "col3-align-center"
+            "value": "center"
           },
           {
             "name": "Right",
-            "value": "col3-align-right"
+            "value": "right"
           }
         ]
       },
@@ -564,22 +564,22 @@
       },
       {
         "component": "select",
-        "name": "classes_col4Align",
+        "name": "col4_align",
         "label": "Alignment",
         "valueType": "string",
-        "value": "col4-align-left",
+        "value": "left",
         "options": [
           {
             "name": "Left",
-            "value": "col4-align-left"
+            "value": "left"
           },
           {
             "name": "Center",
-            "value": "col4-align-center"
+            "value": "center"
           },
           {
             "name": "Right",
-            "value": "col4-align-right"
+            "value": "right"
           }
         ]
       },
@@ -611,22 +611,22 @@
       },
       {
         "component": "select",
-        "name": "classes_col5Align",
+        "name": "col5_align",
         "label": "Alignment",
         "valueType": "string",
-        "value": "col5-align-left",
+        "value": "left",
         "options": [
           {
             "name": "Left",
-            "value": "col5-align-left"
+            "value": "left"
           },
           {
             "name": "Center",
-            "value": "col5-align-center"
+            "value": "center"
           },
           {
             "name": "Right",
-            "value": "col5-align-right"
+            "value": "right"
           }
         ]
       },
@@ -658,22 +658,22 @@
       },
       {
         "component": "select",
-        "name": "classes_col6Align",
+        "name": "col6_align",
         "label": "Alignment",
         "valueType": "string",
-        "value": "col6-align-left",
+        "value": "left",
         "options": [
           {
             "name": "Left",
-            "value": "col6-align-left"
+            "value": "left"
           },
           {
             "name": "Center",
-            "value": "col6-align-center"
+            "value": "center"
           },
           {
             "name": "Right",
-            "value": "col6-align-right"
+            "value": "right"
           }
         ]
       }

@@ -1,24 +1,42 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const METADATA_KEYS = new Set(['columns', 'rows', 'classes', 'options']);
 const MAX_COLUMNS = 6;
-const FIELDS_PER_COLUMN = 3;
+const CONTENT_FIELD_PATTERN = /^col\d+_(image|imageAlt|text)$/;
+const ROW_METADATA_PATTERN = /^columns$|^col\d+_align$/;
 
 function isAuthoringEnvironment() {
   return document.querySelector('script[src*="editor-support.js"]') !== null;
+}
+
+function getFieldProp(row) {
+  const prop = row.querySelector('[data-aue-prop]')?.getAttribute('data-aue-prop');
+  if (prop) return prop;
+
+  if (row.children.length === 2) {
+    return row.children[0].textContent.trim().toLowerCase();
+  }
+
+  return null;
 }
 
 function isMetadataRow(row) {
   const cells = [...row.children];
   if (!cells.length) return true;
 
+  const prop = getFieldProp(row);
+  if (prop && (ROW_METADATA_PATTERN.test(prop) || METADATA_KEYS.has(prop))) {
+    return true;
+  }
+
   if (cells.length === 2) {
     const key = cells[0].textContent.trim().toLowerCase();
     return METADATA_KEYS.has(key);
   }
 
-  return false;
+  const text = row.textContent.trim();
+  return text.includes('columns-') && text.includes('col1-align');
 }
 
 function getNestedRowBlocks(block) {
@@ -28,8 +46,20 @@ function getNestedRowBlocks(block) {
   );
 }
 
+function cleanRowMetadata(rowBlock) {
+  [...rowBlock.children].forEach((row) => {
+    if (isMetadataRow(row)) row.remove();
+  });
+}
+
 function getRowFieldDivs(rowBlock) {
-  return [...rowBlock.children].filter((child) => child.tagName === 'DIV');
+  return [...rowBlock.children]
+    .filter((child) => {
+      if (child.tagName !== 'DIV') return false;
+      const prop = getFieldProp(child);
+      return prop && CONTENT_FIELD_PATTERN.test(prop);
+    })
+    .sort((a, b) => getFieldProp(a).localeCompare(getFieldProp(b), undefined, { numeric: true }));
 }
 
 function getColumnCountFromClass(element) {
@@ -40,32 +70,38 @@ function getColumnCountFromClass(element) {
   return counts.length ? Math.max(...counts) : null;
 }
 
-function getColumnAlign(rowBlock, columnIndex) {
-  const alignClass = [...rowBlock.classList].find(
-    (cls) => cls.startsWith(`col${columnIndex}-align-`),
-  );
-  return alignClass?.replace(`col${columnIndex}-align-`, '') || 'left';
-}
+function parseRowColumnCount(rowBlock, config = readBlockConfig(rowBlock)) {
+  if (config.columns) return parseInt(config.columns, 10);
 
-function parseRowColumnCount(rowBlock) {
   const fromClass = getColumnCountFromClass(rowBlock);
   if (fromClass) return fromClass;
 
-  const fieldCount = getRowFieldDivs(rowBlock).length;
-  if (fieldCount >= FIELDS_PER_COLUMN) {
-    return Math.min(Math.floor(fieldCount / FIELDS_PER_COLUMN), MAX_COLUMNS);
-  }
+  const props = getRowFieldDivs(rowBlock).map((row) => getFieldProp(row));
+  const columnIndexes = props
+    .map((prop) => prop.match(/^col(\d+)_/)?.[1])
+    .filter(Boolean)
+    .map((value) => parseInt(value, 10));
+  if (columnIndexes.length) return Math.min(Math.max(...columnIndexes), MAX_COLUMNS);
 
   return 1;
 }
 
+function getColumnAlign(config, columnIndex) {
+  const align = config[`col${columnIndex}_align`];
+  if (align === 'center' || align === 'right') return align;
+  return 'left';
+}
+
+function getColumnField(rowBlock, columnIndex, fieldName) {
+  const prop = `col${columnIndex}_${fieldName}`;
+  return [...rowBlock.children].find((row) => getFieldProp(row) === prop);
+}
+
 function getColumnFields(rowBlock, columnIndex) {
-  const fields = getRowFieldDivs(rowBlock);
-  const start = (columnIndex - 1) * FIELDS_PER_COLUMN;
   return {
-    image: fields[start],
-    imageAlt: fields[start + 1],
-    text: fields[start + 2],
+    image: getColumnField(rowBlock, columnIndex, 'image'),
+    imageAlt: getColumnField(rowBlock, columnIndex, 'imageAlt'),
+    text: getColumnField(rowBlock, columnIndex, 'text'),
   };
 }
 
@@ -73,8 +109,10 @@ function collectRowData(block) {
   const nestedRows = getNestedRowBlocks(block)
     .map((rowBlock) => {
       rowBlock.classList.add('table-row');
-      const columnCount = parseRowColumnCount(rowBlock);
-      return { rowBlock, columnCount };
+      const config = readBlockConfig(rowBlock);
+      const columnCount = parseRowColumnCount(rowBlock, config);
+      cleanRowMetadata(rowBlock);
+      return { rowBlock, columnCount, config };
     });
 
   if (nestedRows.length) return nestedRows;
@@ -85,10 +123,16 @@ function collectRowData(block) {
         && !isMetadataRow(row)
         && row.children.length,
     )
-    .map((rowBlock) => ({
-      rowBlock,
-      columnCount: Math.max(1, Math.floor(rowBlock.children.length / FIELDS_PER_COLUMN)),
-    }));
+    .map((rowBlock) => {
+      const config = readBlockConfig(rowBlock);
+      const columnCount = parseRowColumnCount(rowBlock, config);
+      cleanRowMetadata(rowBlock);
+      return {
+        rowBlock,
+        columnCount,
+        config,
+      };
+    });
 }
 
 function syncColumnLayout(element, columnCount) {
@@ -108,13 +152,13 @@ function applyCellAlignment(element, align) {
   element.classList.add(`table-cell-align-${align}`);
 }
 
-function layoutRowCells(rowBlock, columnCount) {
+function layoutRowCells(rowBlock, columnCount, config) {
   syncColumnLayout(rowBlock, columnCount);
 
   for (let col = 1; col <= MAX_COLUMNS; col += 1) {
     const { image, imageAlt, text } = getColumnFields(rowBlock, col);
     const hidden = col > columnCount;
-    const align = getColumnAlign(rowBlock, col);
+    const align = getColumnAlign(config, col);
 
     [image, imageAlt, text].forEach((field, rowIndex) => {
       if (!field) return;
@@ -146,8 +190,8 @@ function layoutRowCells(rowBlock, columnCount) {
 }
 
 function applyRowLayout(rowDataList) {
-  rowDataList.forEach(({ rowBlock, columnCount }) => {
-    layoutRowCells(rowBlock, columnCount);
+  rowDataList.forEach(({ rowBlock, columnCount, config }) => {
+    layoutRowCells(rowBlock, columnCount, config);
   });
 }
 
@@ -177,7 +221,7 @@ function appendFieldContent(target, field) {
   while (field.firstChild) target.append(field.firstChild);
 }
 
-function buildRow(rowBlock, tagName, columnCount, maxColumnCount) {
+function buildRow(rowBlock, tagName, columnCount, maxColumnCount, config) {
   const tr = document.createElement('tr');
 
   for (let col = 1; col <= columnCount; col += 1) {
@@ -188,7 +232,7 @@ function buildRow(rowBlock, tagName, columnCount, maxColumnCount) {
     appendFieldContent(cell, image);
     appendFieldContent(cell, text);
 
-    applyCellAlignment(cell, getColumnAlign(rowBlock, col));
+    applyCellAlignment(cell, getColumnAlign(config, col));
     tr.append(cell);
   }
 
@@ -217,10 +261,10 @@ function convertToTable(block, rowDataList) {
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
 
-  rowDataList.forEach(({ rowBlock, columnCount }, index) => {
+  rowDataList.forEach(({ rowBlock, columnCount, config }, index) => {
     optimizeImages(rowBlock);
     const isHeader = useHeaderRow && index === 0;
-    const tr = buildRow(rowBlock, isHeader ? 'th' : 'td', columnCount, maxColumnCount);
+    const tr = buildRow(rowBlock, isHeader ? 'th' : 'td', columnCount, maxColumnCount, config);
     if (isHeader) thead.append(tr);
     else tbody.append(tr);
   });
