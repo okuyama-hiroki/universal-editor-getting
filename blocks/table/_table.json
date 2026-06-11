@@ -27,6 +27,7 @@
             "template": {
               "name": "Table Row",
               "model": "table-row",
+              "key-value": true,
               "columns": "1",
               "col1_align": "left",
               "col2_align": "left",

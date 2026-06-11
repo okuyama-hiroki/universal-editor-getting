@@ -34,6 +34,12 @@
   display: none !important;
 }
 
+.block.table [data-aue-component='table-row'] > div:has([data-aue-prop='columns']),
+.block.table [data-aue-component='table-row'] > div:has([data-aue-prop$='_align']),
+.block.table [data-aue-component='table-row'] > div:has([data-aue-prop$='_imageAlt']) {
+  display: none !important;
+}
+
 .block.table > [data-aue-component='table-row'] > .table-cell-image + .table-cell-text,
 .block.table > .table-row > .table-cell-image + .table-cell-text {
   margin-top: 0.5rem;

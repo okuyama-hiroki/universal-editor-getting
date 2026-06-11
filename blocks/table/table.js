@@ -32,28 +32,24 @@ function isAlignValue(text) {
   return ALIGN_VALUES.has(text.toLowerCase());
 }
 
-function isAlignRow(row) {
-  const prop = getFieldProp(row);
-  if (prop?.endsWith('_align')) return true;
-  if (prop?.endsWith('_text') || prop?.endsWith('_image')) return false;
-  if (row.querySelector('[data-aue-type="richtext"], [data-richtext-model]')) return false;
-  return isAlignValue(getRowText(row));
+function isMetadataProp(prop) {
+  if (!prop) return false;
+  if (prop === 'columns' || METADATA_KEYS.has(prop)) return true;
+  return prop.endsWith('_align') || prop.endsWith('_imageAlt');
 }
 
-function isColumnsRow(row) {
-  const prop = getFieldProp(row);
-  if (prop === 'columns') return true;
-  if (prop) return false;
-  return isColumnsValue(getRowText(row));
+function isContentProp(prop) {
+  return prop?.endsWith('_text') || prop?.endsWith('_image');
 }
 
 function isMetadataRow(row) {
   if (row.classList.contains('table-row-metadata')) return true;
-  if (isColumnsRow(row) || isAlignRow(row)) return true;
 
   const prop = getFieldProp(row);
-  if (prop === 'columns' || /^col\d+_align$/.test(prop || '')) return true;
-  if (prop && METADATA_KEYS.has(prop)) return true;
+  if (isMetadataProp(prop)) return true;
+
+  const text = getRowText(row).toLowerCase();
+  if (isColumnsValue(text) || isAlignValue(text)) return true;
 
   const legacyText = row.textContent.trim();
   return legacyText.includes('columns-') && legacyText.includes('col1-align');
@@ -66,128 +62,34 @@ function getNestedRowBlocks(block) {
   );
 }
 
-function createEmptyColumnMap() {
-  return Object.fromEntries(
-    [...Array(MAX_COLUMNS)].map((_, index) => [index + 1, {
-      image: null,
-      imageAlt: null,
-      text: null,
-      align: null,
-    }]),
-  );
-}
-
-function markMetadata(row) {
-  row.classList.add('table-row-metadata');
-}
-
-function markContent(row, type) {
-  row.classList.remove('table-row-metadata');
-  row.classList.remove('table-cell-image', 'table-cell-text', 'table-cell-image-alt', 'table-cell-hidden');
-  row.classList.add(`table-cell-${type}`);
-}
-
-function assignField(cols, colIndex, type, row) {
-  if (!cols[colIndex]) return;
-  if (!cols[colIndex][type]) {
-    cols[colIndex][type] = row;
-    if (type === 'align' || type === 'imageAlt') markMetadata(row);
-    else markContent(row, type === 'image' ? 'image' : 'text');
-  }
-}
-
-function scanRowFields(rowBlock) {
-  const rows = [...rowBlock.children].filter((child) => child.tagName === 'DIV');
-  const cols = createEmptyColumnMap();
-  let columnsRow = null;
-
-  rows.forEach((row) => {
-    row.classList.remove(
-      'table-row-metadata',
-      'table-cell-image',
-      'table-cell-text',
-      'table-cell-image-alt',
-      'table-cell-hidden',
-    );
-    delete row.dataset.tableCol;
-    row.style.gridColumn = '';
-    row.style.gridRow = '';
-  });
-
-  rows.forEach((row) => {
-    const prop = getFieldProp(row);
-    if (prop === 'columns') {
-      columnsRow = row;
-      markMetadata(row);
-      return;
-    }
-
-    const match = prop?.match(/^col(\d+)_(image|imageAlt|text|align)$/);
-    if (match) {
-      const colIndex = parseInt(match[1], 10);
-      assignField(cols, colIndex, match[2], row);
+function hideMetadataRows(rowBlock) {
+  [...rowBlock.children].forEach((row) => {
+    if (isMetadataRow(row)) {
+      row.classList.add('table-row-metadata');
     }
   });
-
-  rows.forEach((row) => {
-    if (row.classList.contains('table-row-metadata') || row.classList.contains('table-cell-image')
-      || row.classList.contains('table-cell-text')) return;
-
-    if (isColumnsRow(row)) {
-      if (!columnsRow) {
-        columnsRow = row;
-        markMetadata(row);
-      }
-      return;
-    }
-
-    if (isAlignRow(row)) {
-      for (let col = 1; col <= MAX_COLUMNS; col += 1) {
-        if (!cols[col].align) {
-          cols[col].align = row;
-          markMetadata(row);
-          return;
-        }
-      }
-      return;
-    }
-
-    if (row.querySelector('picture, img')) {
-      for (let col = 1; col <= MAX_COLUMNS; col += 1) {
-        if (!cols[col].image) {
-          assignField(cols, col, 'image', row);
-          return;
-        }
-      }
-      return;
-    }
-
-    const text = getRowText(row);
-    if (text) {
-      for (let col = 1; col <= MAX_COLUMNS; col += 1) {
-        if (!cols[col].text) {
-          assignField(cols, col, 'text', row);
-          return;
-        }
-      }
-    }
-  });
-
-  return { columnsRow, cols };
 }
 
-function readRowConfig(rowBlock, fields) {
-  const config = { ...readBlockConfig(rowBlock) };
+function getColumnIndexFromProp(prop) {
+  const match = prop?.match(/^col(\d+)_(image|text)$/);
+  return match ? parseInt(match[1], 10) : null;
+}
 
-  if (!config.columns && fields.columnsRow) {
-    const value = getRowText(fields.columnsRow).match(/^[1-6]$/)?.[0];
-    if (value) config.columns = value;
+function readRowConfig(rowBlock) {
+  const config = readBlockConfig(rowBlock);
+
+  if (!config.columns) {
+    const columnsRow = [...rowBlock.children].find((row) => getFieldProp(row) === 'columns');
+    if (columnsRow) {
+      const value = getRowText(columnsRow).match(/^[1-6]$/)?.[0];
+      if (value) config.columns = value;
+    }
   }
 
   for (let col = 1; col <= MAX_COLUMNS; col += 1) {
     const key = `col${col}_align`;
     if (!config[key]) {
-      const alignRow = fields.cols[col].align;
+      const alignRow = [...rowBlock.children].find((row) => getFieldProp(row) === key);
       if (alignRow) {
         const align = getRowText(alignRow).toLowerCase();
         if (isAlignValue(align)) config[key] = align;
@@ -206,16 +108,16 @@ function getColumnCountFromClass(element) {
   return counts.length ? Math.max(...counts) : null;
 }
 
-function parseRowColumnCount(rowBlock, config, fields) {
+function parseRowColumnCount(rowBlock, config) {
   if (config.columns) return parseInt(config.columns, 10);
 
   const fromClass = getColumnCountFromClass(rowBlock);
   if (fromClass) return fromClass;
 
-  const usedCols = Object.entries(fields.cols)
-    .filter(([, colFields]) => colFields.text || colFields.image)
-    .map(([col]) => parseInt(col, 10));
-  if (usedCols.length) return Math.min(Math.max(...usedCols), MAX_COLUMNS);
+  const contentCols = [...rowBlock.children]
+    .map((row) => getColumnIndexFromProp(getFieldProp(row)))
+    .filter(Boolean);
+  if (contentCols.length) return Math.min(Math.max(...contentCols), MAX_COLUMNS);
 
   return 1;
 }
@@ -226,14 +128,24 @@ function getColumnAlign(config, columnIndex) {
   return 'left';
 }
 
+function getContentRows(rowBlock) {
+  return [...rowBlock.children].filter((row) => {
+    const prop = getFieldProp(row);
+    return isContentProp(prop);
+  });
+}
+
+function getColumnField(rowBlock, columnIndex, fieldName) {
+  const prop = `col${columnIndex}_${fieldName}`;
+  return [...rowBlock.children].find((row) => getFieldProp(row) === prop);
+}
+
 function prepareRowBlock(rowBlock) {
   rowBlock.classList.add('table-row');
-  const fields = scanRowFields(rowBlock);
-  const config = readRowConfig(rowBlock, fields);
-  const columnCount = parseRowColumnCount(rowBlock, config, fields);
-  return {
-    rowBlock, columnCount, config, fields,
-  };
+  hideMetadataRows(rowBlock);
+  const config = readRowConfig(rowBlock);
+  const columnCount = parseRowColumnCount(rowBlock, config);
+  return { rowBlock, columnCount, config };
 }
 
 function collectRowData(block) {
@@ -264,32 +176,39 @@ function applyCellAlignment(element, align) {
     'table-cell-align-right',
   );
   element.classList.add(`table-cell-align-${align}`);
+  element.style.textAlign = align;
+  element.querySelectorAll(':scope > div, :scope p, :scope [data-aue-type="richtext"]').forEach((child) => {
+    child.style.textAlign = align;
+  });
 }
 
-function layoutRowCells(rowBlock, columnCount, config, fields) {
+function layoutRowCells(rowBlock, columnCount, config) {
   syncColumnLayout(rowBlock, columnCount);
+  hideMetadataRows(rowBlock);
 
-  for (let col = 1; col <= MAX_COLUMNS; col += 1) {
-    const { image, text } = fields.cols[col];
+  getContentRows(rowBlock).forEach((row) => {
+    const prop = getFieldProp(row);
+    const col = getColumnIndexFromProp(prop);
+    if (!col) return;
+
     const hidden = col > columnCount;
     const align = getColumnAlign(config, col);
+    const type = prop.endsWith('_image') ? 'image' : 'text';
 
-    [image, text].forEach((field) => {
-      if (!field) return;
+    row.classList.toggle('table-cell-hidden', hidden);
+    row.classList.toggle('table-cell-image', !hidden && type === 'image');
+    row.classList.toggle('table-cell-text', !hidden && type === 'text');
 
-      field.classList.toggle('table-cell-hidden', hidden);
-      if (hidden) {
-        field.style.gridColumn = '';
-        field.style.gridRow = '';
-        return;
-      }
+    if (hidden) {
+      row.style.gridColumn = '';
+      row.style.gridRow = '';
+      return;
+    }
 
-      field.dataset.tableCol = String(col);
-      field.style.gridColumn = String(col);
-      field.style.gridRow = '1';
-      applyCellAlignment(field, align);
-    });
-  }
+    row.style.gridColumn = String(col);
+    row.style.gridRow = '1';
+    applyCellAlignment(row, align);
+  });
 
   rowBlock.style.display = 'grid';
   rowBlock.style.gridTemplateColumns = `repeat(${columnCount}, minmax(0, 1fr))`;
@@ -298,10 +217,8 @@ function layoutRowCells(rowBlock, columnCount, config, fields) {
 }
 
 function applyRowLayout(rowDataList) {
-  rowDataList.forEach(({
-    rowBlock, columnCount, config, fields,
-  }) => {
-    layoutRowCells(rowBlock, columnCount, config, fields);
+  rowDataList.forEach(({ rowBlock, columnCount, config }) => {
+    layoutRowCells(rowBlock, columnCount, config);
   });
 }
 
@@ -331,14 +248,15 @@ function appendFieldContent(target, field) {
   while (field.firstChild) target.append(field.firstChild);
 }
 
-function buildRow(rowBlock, tagName, columnCount, maxColumnCount, config, fields) {
+function buildRow(rowBlock, tagName, columnCount, maxColumnCount, config) {
   const tr = document.createElement('tr');
 
   for (let col = 1; col <= columnCount; col += 1) {
     const cell = document.createElement(tagName);
     if (tagName === 'th') cell.setAttribute('scope', 'col');
 
-    const { image, text } = fields.cols[col];
+    const image = getColumnField(rowBlock, col, 'image');
+    const text = getColumnField(rowBlock, col, 'text');
     appendFieldContent(cell, image);
     appendFieldContent(cell, text);
 
@@ -371,13 +289,11 @@ function convertToTable(block, rowDataList) {
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
 
-  rowDataList.forEach(({
-    rowBlock, columnCount, config, fields,
-  }, index) => {
+  rowDataList.forEach(({ rowBlock, columnCount, config }, index) => {
     rowBlock.querySelectorAll('.table-row-metadata').forEach((row) => row.remove());
     optimizeImages(rowBlock);
     const isHeader = useHeaderRow && index === 0;
-    const tr = buildRow(rowBlock, isHeader ? 'th' : 'td', columnCount, maxColumnCount, config, fields);
+    const tr = buildRow(rowBlock, isHeader ? 'th' : 'td', columnCount, maxColumnCount, config);
     if (isHeader) thead.append(tr);
     else tbody.append(tr);
   });
