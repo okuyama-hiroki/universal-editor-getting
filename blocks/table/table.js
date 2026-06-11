@@ -2,7 +2,7 @@ import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const METADATA_KEYS = new Set(['columns', 'rows', 'classes', 'options']);
-const MAX_COLUMNS = 6;
+const MAX_COLUMNS = 3;
 const ALIGN_VALUES = new Set(['left', 'center', 'right']);
 
 function isAuthoringEnvironment() {
@@ -25,7 +25,7 @@ function getFieldProp(row) {
 }
 
 function isColumnsValue(text) {
-  return /^[1-6]$/.test(text);
+  return /^[1-3]$/.test(text);
 }
 
 function isAlignValue(text) {
@@ -94,7 +94,7 @@ function readRowConfig(rowBlock) {
   if (!config.columns) {
     const columnsRow = [...rowBlock.children].find((row) => getFieldProp(row) === 'columns');
     if (columnsRow) {
-      const value = getRowText(columnsRow).match(/^[1-6]$/)?.[0];
+      const value = getRowText(columnsRow).match(/^[1-3]$/)?.[0];
       if (value) config.columns = value;
     }
   }

@@ -304,62 +304,6 @@
     ]
   },
   {
-    "id": "table",
-    "fields": [
-      {
-        "component": "select",
-        "name": "classes_header-row",
-        "label": "Header row",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
-          },
-          {
-            "name": "Yes",
-            "value": "header-row"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "classes_striped",
-        "label": "Striped",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
-          },
-          {
-            "name": "Yes",
-            "value": "striped"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "classes_bordered",
-        "label": "Bordered",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
-          },
-          {
-            "name": "Yes",
-            "value": "bordered"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "table-row",
     "fields": [
       {
@@ -380,18 +324,6 @@
           {
             "name": "3 columns",
             "value": "3"
-          },
-          {
-            "name": "4 columns",
-            "value": "4"
-          },
-          {
-            "name": "5 columns",
-            "value": "5"
-          },
-          {
-            "name": "6 columns",
-            "value": "6"
           }
         ]
       },
@@ -413,27 +345,6 @@
         "component": "richtext",
         "name": "col3_text",
         "label": "Column 3",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "col4_text",
-        "label": "Column 4",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "col5_text",
-        "label": "Column 5",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "col6_text",
-        "label": "Column 6",
         "valueType": "string",
         "value": ""
       }
