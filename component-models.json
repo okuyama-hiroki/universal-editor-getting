@@ -324,18 +324,6 @@
           {
             "name": "3 columns",
             "value": "3"
-          },
-          {
-            "name": "4 columns",
-            "value": "4"
-          },
-          {
-            "name": "5 columns",
-            "value": "5"
-          },
-          {
-            "name": "6 columns",
-            "value": "6"
           }
         ]
       },
@@ -396,18 +384,67 @@
     "id": "table-row",
     "fields": [
       {
-        "component": "text",
-        "valueType": "number",
+        "component": "select",
         "name": "columns",
-        "value": "",
-        "label": "Columns"
+        "label": "Columns",
+        "valueType": "string",
+        "value": "1",
+        "options": [
+          {
+            "name": "1 column",
+            "value": "1"
+          },
+          {
+            "name": "2 columns",
+            "value": "2"
+          },
+          {
+            "name": "3 columns",
+            "value": "3"
+          }
+        ]
       },
       {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "",
-        "label": "Rows"
+        "component": "richtext",
+        "name": "col1_text",
+        "label": "Column 1 Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "name": "col1_image",
+        "label": "Column 1 Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "col2_text",
+        "label": "Column 2 Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "name": "col2_image",
+        "label": "Column 2 Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "col3_text",
+        "label": "Column 3 Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "name": "col3_image",
+        "label": "Column 3 Image",
+        "valueType": "string",
+        "multi": false
       }
     ]
   },

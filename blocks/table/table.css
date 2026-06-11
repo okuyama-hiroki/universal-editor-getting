@@ -26,6 +26,20 @@
   padding: 12px 16px;
 }
 
+.block.table .table-cell-hidden,
+.block.table .table-row-metadata {
+  display: none !important;
+}
+
+.block.table [data-aue-component='table-row'] > div:has([data-aue-prop='columns']) {
+  display: none !important;
+}
+
+.block.table > [data-aue-component='table-row'] > .table-cell-image + .table-cell-text,
+.block.table > .table-row > .table-cell-image + .table-cell-text {
+  margin-top: 0.5rem;
+}
+
 .block.table.columns-1-cols {
   --table-columns: 1;
 }
@@ -38,16 +52,19 @@
   --table-columns: 3;
 }
 
-.block.table.columns-4-cols {
-  --table-columns: 4;
+.block.table > .table-row.columns-1-cols,
+.block.table > [data-aue-component='table-row'].columns-1-cols {
+  --table-columns: 1;
 }
 
-.block.table.columns-5-cols {
-  --table-columns: 5;
+.block.table > .table-row.columns-2-cols,
+.block.table > [data-aue-component='table-row'].columns-2-cols {
+  --table-columns: 2;
 }
 
-.block.table.columns-6-cols {
-  --table-columns: 6;
+.block.table > .table-row.columns-3-cols,
+.block.table > [data-aue-component='table-row'].columns-3-cols {
+  --table-columns: 3;
 }
 
 /* UE 編集時: 表全体・行・列の枠線を表示 */
@@ -81,11 +98,7 @@
   background-color: var(--light-color);
 }
 
-.block.table :is(
-  > .table-row > div,
-  > [data-aue-component='table-row'] > div,
-  > .columns.block > div > div
-) :is(img, picture) {
+.block.table .table-cell-image :is(img, picture) {
   display: block;
   max-width: 100%;
   height: auto;
