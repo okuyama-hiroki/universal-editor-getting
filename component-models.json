@@ -304,7 +304,7 @@
     ]
   },
   {
-    "id": "table-row",
+    "id": "table",
     "fields": [
       {
         "component": "select",
@@ -324,29 +324,90 @@
           {
             "name": "3 columns",
             "value": "3"
+          },
+          {
+            "name": "4 columns",
+            "value": "4"
+          },
+          {
+            "name": "5 columns",
+            "value": "5"
+          },
+          {
+            "name": "6 columns",
+            "value": "6"
           }
         ]
       },
       {
-        "component": "richtext",
-        "name": "col1_text",
-        "label": "Column 1",
+        "component": "select",
+        "name": "classes_header-row",
+        "label": "Header row",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "options": [
+          {
+            "name": "No",
+            "value": ""
+          },
+          {
+            "name": "Yes",
+            "value": "header-row"
+          }
+        ]
       },
       {
-        "component": "richtext",
-        "name": "col2_text",
-        "label": "Column 2",
+        "component": "select",
+        "name": "classes_striped",
+        "label": "Striped",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "options": [
+          {
+            "name": "No",
+            "value": ""
+          },
+          {
+            "name": "Yes",
+            "value": "striped"
+          }
+        ]
       },
       {
-        "component": "richtext",
-        "name": "col3_text",
-        "label": "Column 3",
+        "component": "select",
+        "name": "classes_bordered",
+        "label": "Bordered",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "options": [
+          {
+            "name": "No",
+            "value": ""
+          },
+          {
+            "name": "Yes",
+            "value": "bordered"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table-row",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "",
+        "label": "Columns"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "",
+        "label": "Rows"
       }
     ]
   },

@@ -55,5 +55,11 @@
     "components": [
       "table-row"
     ]
+  },
+  {
+    "id": "table-row",
+    "components": [
+      "column"
+    ]
   }
 ]
