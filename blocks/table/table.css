@@ -17,6 +17,15 @@
   width: 100%;
 }
 
+/* UE 編集時: セル枠を常に表示（bordered オプションなしでも列が分かる） */
+.block.table:not(:has(.table-scroll)) :is(
+  > .table-row > div,
+  > [data-aue-component='table-row'] > div,
+  > .columns.block > div > div
+) {
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 12%);
+}
+
 .block.table :is(
   > .table-row > div,
   > [data-aue-component='table-row'] > div,

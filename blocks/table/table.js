@@ -58,10 +58,11 @@ function collectRows(block) {
 }
 
 function getColumnCountFromClass(element) {
-  const match = [...element.classList]
+  const counts = [...element.classList]
     .map((cls) => cls.match(/^columns-(\d+)-cols$/)?.[1])
-    .find(Boolean);
-  return match ? parseInt(match, 10) : null;
+    .filter(Boolean)
+    .map((value) => parseInt(value, 10));
+  return counts.length ? Math.max(...counts) : null;
 }
 
 function parseColumnCount(block, dataRows) {
@@ -71,10 +72,27 @@ function parseColumnCount(block, dataRows) {
   const config = readBlockConfig(block);
   if (config.columns) return parseInt(config.columns, 10);
 
-  const counts = dataRows.map((row) => row.children.length).filter(Boolean);
-  if (counts.length) return Math.max(...counts);
+  if (!isAuthoringEnvironment()) {
+    const counts = dataRows.map((row) => row.children.length).filter(Boolean);
+    if (counts.length) return Math.max(...counts);
+  }
 
   return 1;
+}
+
+function syncColumnLayout(element, columnCount) {
+  element.classList.remove(
+    ...[...element.classList].filter((cls) => /^columns-\d+-cols$/.test(cls)),
+  );
+  element.classList.add(`columns-${columnCount}-cols`);
+  element.style.setProperty('--table-columns', columnCount);
+}
+
+function applyRowLayout(block, columnCount) {
+  getNestedRowBlocks(block).forEach((rowBlock) => {
+    rowBlock.classList.add('table-row');
+    syncColumnLayout(rowBlock, columnCount);
+  });
 }
 
 function buildCell(cell, tagName) {
@@ -149,9 +167,8 @@ export default function decorate(block) {
   const rows = collectRows(block);
   const columnCount = parseColumnCount(block, rows);
 
-  if (!getColumnCountFromClass(block)) {
-    block.classList.add(`columns-${columnCount}-cols`);
-  }
+  syncColumnLayout(block, columnCount);
+  applyRowLayout(block, columnCount);
 
   if (isAuthoringEnvironment()) {
     return;
