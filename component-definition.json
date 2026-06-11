@@ -230,7 +230,6 @@
                 "template": {
                   "name": "Table",
                   "model": "table",
-                  "key-value": true,
                   "filter": "table-rows"
                 }
               }
@@ -246,9 +245,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Table Row",
-                  "model": "table-row",
-                  "columns": "1",
-                  "col1_text": "<p></p>"
+                  "model": "table-row"
                 }
               }
             }

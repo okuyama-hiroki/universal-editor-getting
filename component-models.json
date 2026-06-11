@@ -396,128 +396,44 @@
         ]
       },
       {
-        "component": "reference",
-        "name": "col1_image",
-        "label": "Column 1 Image",
-        "valueType": "string",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "col1_imageAlt",
-        "label": "Column 1 Image Alt",
-        "valueType": "string",
-        "value": ""
-      },
-      {
         "component": "richtext",
         "name": "col1_text",
-        "label": "Column 1 Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "col2_image",
-        "label": "Column 2 Image",
-        "valueType": "string",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "col2_imageAlt",
-        "label": "Column 2 Image Alt",
+        "label": "Column 1",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col2_text",
-        "label": "Column 2 Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "col3_image",
-        "label": "Column 3 Image",
-        "valueType": "string",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "col3_imageAlt",
-        "label": "Column 3 Image Alt",
+        "label": "Column 2",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col3_text",
-        "label": "Column 3 Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "col4_image",
-        "label": "Column 4 Image",
-        "valueType": "string",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "col4_imageAlt",
-        "label": "Column 4 Image Alt",
+        "label": "Column 3",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col4_text",
-        "label": "Column 4 Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "col5_image",
-        "label": "Column 5 Image",
-        "valueType": "string",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "col5_imageAlt",
-        "label": "Column 5 Image Alt",
+        "label": "Column 4",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col5_text",
-        "label": "Column 5 Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "col6_image",
-        "label": "Column 6 Image",
-        "valueType": "string",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "name": "col6_imageAlt",
-        "label": "Column 6 Image Alt",
+        "label": "Column 5",
         "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
         "name": "col6_text",
-        "label": "Column 6 Text",
+        "label": "Column 6",
         "valueType": "string",
         "value": ""
       }
