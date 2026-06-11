@@ -148,6 +148,7 @@ export default function decorate(block) {
   block.classList.add(`columns-${columnCount}-cols`);
 
   if (isAuthoringEnvironment()) {
+    block.classList.add('table-editing');
     return;
   }
 

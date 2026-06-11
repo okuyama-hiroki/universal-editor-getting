@@ -59,7 +59,8 @@
   {
     "id": "table-row",
     "components": [
-      "column"
+      "text",
+      "image"
     ]
   }
 ]

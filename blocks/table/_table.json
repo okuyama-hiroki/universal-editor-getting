@@ -26,7 +26,8 @@
             "resourceType": "core/franklin/components/columns/v1/columns",
             "template": {
               "columns": "1",
-              "rows": "1"
+              "rows": "1",
+              "filter": "table-row"
             }
           }
         }
@@ -153,7 +154,8 @@
     {
       "id": "table-row",
       "components": [
-        "column"
+        "text",
+        "image"
       ]
     }
   ]
