@@ -304,7 +304,7 @@
     ]
   },
   {
-    "id": "table-row",
+    "id": "table",
     "fields": [
       {
         "component": "select",
@@ -328,46 +328,74 @@
         ]
       },
       {
-        "component": "richtext",
-        "name": "col1_text",
-        "label": "Column 1 Text",
+        "component": "select",
+        "name": "classes_header-row",
+        "label": "Header row",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "options": [
+          {
+            "name": "No",
+            "value": ""
+          },
+          {
+            "name": "Yes",
+            "value": "header-row"
+          }
+        ]
       },
       {
-        "component": "reference",
-        "name": "col1_image",
-        "label": "Column 1 Image",
+        "component": "select",
+        "name": "classes_striped",
+        "label": "Striped",
         "valueType": "string",
-        "multi": false
+        "value": "",
+        "options": [
+          {
+            "name": "No",
+            "value": ""
+          },
+          {
+            "name": "Yes",
+            "value": "striped"
+          }
+        ]
       },
       {
-        "component": "richtext",
-        "name": "col2_text",
-        "label": "Column 2 Text",
+        "component": "select",
+        "name": "classes_bordered",
+        "label": "Bordered",
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "options": [
+          {
+            "name": "No",
+            "value": ""
+          },
+          {
+            "name": "Yes",
+            "value": "bordered"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table-row",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "",
+        "label": "Columns"
       },
       {
-        "component": "reference",
-        "name": "col2_image",
-        "label": "Column 2 Image",
-        "valueType": "string",
-        "multi": false
-      },
-      {
-        "component": "richtext",
-        "name": "col3_text",
-        "label": "Column 3 Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "col3_image",
-        "label": "Column 3 Image",
-        "valueType": "string",
-        "multi": false
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "",
+        "label": "Rows"
       }
     ]
   },
