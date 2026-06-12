@@ -55,12 +55,5 @@
     "components": [
       "table-row"
     ]
-  },
-  {
-    "id": "table-row",
-    "components": [
-      "text",
-      "image"
-    ]
   }
 ]

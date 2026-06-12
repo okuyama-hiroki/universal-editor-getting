@@ -304,7 +304,7 @@
     ]
   },
   {
-    "id": "table",
+    "id": "table-row",
     "fields": [
       {
         "component": "select",
@@ -328,55 +328,25 @@
         ]
       },
       {
-        "component": "select",
-        "name": "classes_header-row",
-        "label": "Header row",
+        "component": "richtext",
+        "name": "col1_text",
+        "label": "Column 1",
         "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
-          },
-          {
-            "name": "Yes",
-            "value": "header-row"
-          }
-        ]
+        "value": ""
       },
       {
-        "component": "select",
-        "name": "classes_striped",
-        "label": "Striped",
+        "component": "richtext",
+        "name": "col2_text",
+        "label": "Column 2",
         "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
-          },
-          {
-            "name": "Yes",
-            "value": "striped"
-          }
-        ]
+        "value": ""
       },
       {
-        "component": "select",
-        "name": "classes_bordered",
-        "label": "Bordered",
+        "component": "richtext",
+        "name": "col3_text",
+        "label": "Column 3",
         "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
-          },
-          {
-            "name": "Yes",
-            "value": "bordered"
-          }
-        ]
+        "value": ""
       }
     ]
   },
