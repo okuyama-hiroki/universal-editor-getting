@@ -23,12 +23,11 @@
       "plugins": {
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
+            "resourceType": "core/franklin/components/columns/v1/columns",
             "template": {
-              "name": "Table Row",
-              "model": "table-row",
               "columns": "1",
-              "col1_text": "<p></p>"
+              "rows": "1",
+              "filter": "table-row"
             }
           }
         }
@@ -112,74 +111,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "table-row",
-      "fields": [
-        {
-          "component": "select",
-          "name": "columns",
-          "label": "Columns",
-          "valueType": "string",
-          "value": "1",
-          "options": [
-            {
-              "name": "1 column",
-              "value": "1"
-            },
-            {
-              "name": "2 columns",
-              "value": "2"
-            },
-            {
-              "name": "3 columns",
-              "value": "3"
-            }
-          ]
-        },
-        {
-          "component": "richtext",
-          "name": "col1_text",
-          "label": "Column 1 Text",
-          "valueType": "string",
-          "value": ""
-        },
-        {
-          "component": "reference",
-          "name": "col1_image",
-          "label": "Column 1 Image",
-          "valueType": "string",
-          "multi": false
-        },
-        {
-          "component": "richtext",
-          "name": "col2_text",
-          "label": "Column 2 Text",
-          "valueType": "string",
-          "value": ""
-        },
-        {
-          "component": "reference",
-          "name": "col2_image",
-          "label": "Column 2 Image",
-          "valueType": "string",
-          "multi": false
-        },
-        {
-          "component": "richtext",
-          "name": "col3_text",
-          "label": "Column 3 Text",
-          "valueType": "string",
-          "value": ""
-        },
-        {
-          "component": "reference",
-          "name": "col3_image",
-          "label": "Column 3 Image",
-          "valueType": "string",
-          "multi": false
-        }
-      ]
     }
   ],
   "filters": [
@@ -187,6 +118,13 @@
       "id": "table-rows",
       "components": [
         "table-row"
+      ]
+    },
+    {
+      "id": "table-row",
+      "components": [
+        "text",
+        "image"
       ]
     }
   ]
