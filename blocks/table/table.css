@@ -79,14 +79,14 @@
   border-bottom: 1px solid var(--dark-color);
 }
 
-.block.table.table-editing > div:last-child {
-  border-bottom: none;
-}
-
 .block.table.table-editing > div > div {
   min-height: 3rem;
   padding: 12px 16px;
   border: 1px solid var(--dark-color);
+}
+
+.block.table.table-editing > div:last-child {
+  border-bottom: none;
 }
 
 .block.table.table-editing.columns-1-cols > div {
