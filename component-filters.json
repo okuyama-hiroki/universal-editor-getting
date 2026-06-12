@@ -51,9 +51,9 @@
     ]
   },
   {
-    "id": "table-rows",
+    "id": "table",
     "components": [
-      "table-row"
+      "column"
     ]
   }
 ]

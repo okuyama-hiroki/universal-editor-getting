@@ -1,161 +1,118 @@
+/* AEM Block Collection table styles */
 .block.table {
   width: 100%;
-}
-
-.block.table > .columns.block,
-.block.table > .table-row,
-.block.table > [data-aue-component='table-row'] {
-  width: 100%;
-}
-
-.block.table > .table-row,
-.block.table > [data-aue-component='table-row'],
-.block.table > .columns.block > div {
-  display: grid;
-  grid-template-columns: repeat(var(--table-columns, 1), minmax(0, 1fr));
-  gap: 0;
-  width: 100%;
-}
-
-.block.table :is(
-  > .table-row > div,
-  > [data-aue-component='table-row'] > div,
-  > .columns.block > div > div
-) {
-  min-height: 3rem;
-  padding: 12px 16px;
-}
-
-.block.table .table-cell-hidden,
-.block.table .table-row-metadata {
-  display: none !important;
-}
-
-.block.table [data-aue-component='table-row'] > div:has([data-aue-prop='columns']) {
-  display: none !important;
-}
-
-.block.table > [data-aue-component='table-row'] > .table-cell-image + .table-cell-text,
-.block.table > .table-row > .table-cell-image + .table-cell-text {
-  margin-top: 0.5rem;
-}
-
-.block.table.columns-1-cols {
-  --table-columns: 1;
-}
-
-.block.table.columns-2-cols {
-  --table-columns: 2;
-}
-
-.block.table.columns-3-cols {
-  --table-columns: 3;
-}
-
-.block.table > .table-row.columns-1-cols,
-.block.table > [data-aue-component='table-row'].columns-1-cols {
-  --table-columns: 1;
-}
-
-.block.table > .table-row.columns-2-cols,
-.block.table > [data-aue-component='table-row'].columns-2-cols {
-  --table-columns: 2;
-}
-
-.block.table > .table-row.columns-3-cols,
-.block.table > [data-aue-component='table-row'].columns-3-cols {
-  --table-columns: 3;
-}
-
-/* UE 編集時: 表全体・行・列の枠線を表示 */
-.block.table.table-editing {
-  border: 2px solid var(--dark-color);
-  background-color: var(--background-color);
-}
-
-.block.table.table-editing > :is(.table-row, .columns.block, [data-aue-component='table-row']) {
-  border-bottom: 1px solid var(--dark-color);
-}
-
-.block.table.table-editing > :is(.table-row, .columns.block, [data-aue-component='table-row']):last-child {
-  border-bottom: none;
-}
-
-.block.table.table-editing :is(
-  > .table-row > div,
-  > [data-aue-component='table-row'] > div,
-  > .columns.block > div > div
-) {
-  border: 1px solid var(--dark-color);
-  background-color: var(--background-color);
-}
-
-.block.table.table-editing.striped > :is(
-  .table-row:nth-child(odd),
-  .columns.block:nth-child(odd),
-  [data-aue-component='table-row']:nth-child(odd)
-) > div {
-  background-color: var(--light-color);
-}
-
-.block.table .table-cell-image :is(img, picture) {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-.block.table .table-scroll {
-  width: 100%;
+  overflow-x: auto;
 }
 
 .block.table table {
   width: 100%;
-  table-layout: auto;
-  border-collapse: collapse;
-  border: 1px solid var(--dark-color);
-}
-
-.block.table :is(th, td) {
-  padding: 12px 16px;
-  text-align: left;
-  vertical-align: top;
-  border: 1px solid var(--dark-color);
-}
-
-.block.table :is(th, td) :is(p, ul, ol, li) {
-  text-align: left;
-}
-
-.block.table :is(th, td) :is(img, .icon, [class*='icon-']) {
-  display: inline-block;
-  vertical-align: middle;
   max-width: 100%;
-  height: auto;
+  border-collapse: collapse;
+  font-size: var(--body-font-size-xs);
 }
 
-.block.table.bordered :is(
-  > .table-row > div,
-  > [data-aue-component='table-row'] > div,
-  > .columns.block > div > div
-) {
-  border-color: var(--dark-color);
+@media (width >= 600px) {
+  .block.table table {
+    font-size: var(--body-font-size-s);
+  }
 }
 
+@media (width >= 900px) {
+  .block.table table {
+    font-size: var(--body-font-size-m);
+  }
+}
+
+.block.table table thead tr {
+  border-top: 2px solid #dadada;
+  border-bottom: 2px solid #dadada;
+}
+
+.block.table table tbody tr {
+  border-bottom: 1px solid #dadada;
+}
+
+.block.table table th {
+  font-weight: 700;
+}
+
+.block.table table th,
+.block.table table td {
+  padding: 0.5em;
+  text-align: left;
+}
+
+.block.table table th p,
+.block.table table td p {
+  margin: 0;
+}
+
+.block.table table td p + p {
+  margin-top: 0.25em;
+}
+
+/* no header variant */
+.block.table.no-header table tbody tr {
+  border-top: 1px solid #dadada;
+}
+
+/* striped variant */
 .block.table.striped tbody tr:nth-child(odd) {
   background-color: var(--light-color);
 }
 
-.block.table.striped > :is(.table-row, .columns.block, [data-aue-component='table-row']):nth-child(odd) {
-  background-color: var(--light-color);
+/* bordered variant */
+.block.table.bordered table th,
+.block.table.bordered table td {
+  border: 1px solid #dadada;
 }
 
-@media (width < 900px) {
-  .block.table .table-scroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+/* UE 編集時: グリッドの枠線を表示 */
+.block.table.table-editing {
+  border: 2px solid var(--dark-color);
+}
 
-  .block.table table {
-    min-width: min-content;
-  }
+.block.table.table-editing > div {
+  display: grid;
+  grid-template-columns: repeat(var(--table-columns, 2), minmax(0, 1fr));
+  gap: 0;
+  border-bottom: 1px solid var(--dark-color);
+}
+
+.block.table.table-editing > div:last-child {
+  border-bottom: none;
+}
+
+.block.table.table-editing > div > div {
+  min-height: 3rem;
+  padding: 12px 16px;
+  border: 1px solid var(--dark-color);
+}
+
+.block.table.table-editing.columns-1-cols > div {
+  --table-columns: 1;
+}
+
+.block.table.table-editing.columns-2-cols > div {
+  --table-columns: 2;
+}
+
+.block.table.table-editing.columns-3-cols > div {
+  --table-columns: 3;
+}
+
+.block.table.table-editing.columns-4-cols > div {
+  --table-columns: 4;
+}
+
+.block.table.table-editing.columns-5-cols > div {
+  --table-columns: 5;
+}
+
+.block.table.table-editing.columns-6-cols > div {
+  --table-columns: 6;
+}
+
+.block.table.table-editing.striped > div:nth-child(odd) {
+  background-color: var(--light-color);
 }

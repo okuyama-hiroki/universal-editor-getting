@@ -307,123 +307,38 @@
     "id": "table",
     "fields": [
       {
-        "component": "select",
+        "component": "text",
+        "valueType": "number",
         "name": "columns",
-        "label": "Columns",
-        "valueType": "string",
-        "value": "1",
-        "options": [
-          {
-            "name": "1 column",
-            "value": "1"
-          },
-          {
-            "name": "2 columns",
-            "value": "2"
-          },
-          {
-            "name": "3 columns",
-            "value": "3"
-          }
-        ]
+        "value": "2",
+        "label": "Columns"
       },
       {
-        "component": "select",
-        "name": "classes_header-row",
-        "label": "Header row",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
-          },
-          {
-            "name": "Yes",
-            "value": "header-row"
-          }
-        ]
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "2",
+        "label": "Rows"
       },
       {
-        "component": "select",
-        "name": "classes_striped",
-        "label": "Striped",
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Options",
         "valueType": "string",
-        "value": "",
         "options": [
           {
-            "name": "No",
-            "value": ""
+            "name": "No header",
+            "value": "no-header"
           },
           {
-            "name": "Yes",
+            "name": "Striped",
             "value": "striped"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "classes_bordered",
-        "label": "Bordered",
-        "valueType": "string",
-        "value": "",
-        "options": [
-          {
-            "name": "No",
-            "value": ""
           },
           {
-            "name": "Yes",
+            "name": "Bordered",
             "value": "bordered"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "table-row",
-    "fields": [
-      {
-        "component": "select",
-        "name": "columns",
-        "label": "Columns",
-        "valueType": "string",
-        "value": "1",
-        "options": [
-          {
-            "name": "1 column",
-            "value": "1"
-          },
-          {
-            "name": "2 columns",
-            "value": "2"
-          },
-          {
-            "name": "3 columns",
-            "value": "3"
-          }
-        ]
-      },
-      {
-        "component": "richtext",
-        "name": "col1_text",
-        "label": "Column 1",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "col2_text",
-        "label": "Column 2",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "col3_text",
-        "label": "Column 3",
-        "valueType": "string",
-        "value": ""
       }
     ]
   },
