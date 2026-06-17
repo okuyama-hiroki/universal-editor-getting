@@ -4,16 +4,26 @@ function isAuthoringEnvironment() {
   return document.querySelector('script[src*="editor-support.js"]') !== null;
 }
 
-function getRowColumns(tableRow) {
-  if (tableRow.children.length === 1 && tableRow.firstElementChild.children.length > 0) {
-    return [...tableRow.firstElementChild.children];
-  }
-  return [...tableRow.children];
+function getColumnCount(tableRow) {
+  const count = parseInt(tableRow.firstElementChild?.textContent?.trim(), 10);
+  return Number.isNaN(count) ? 2 : count;
+}
+
+function getRowCells(tableRow) {
+  const count = getColumnCount(tableRow);
+  return [...tableRow.children].slice(1, 1 + count);
 }
 
 function decorateTableRow(tableRow) {
-  const cols = getRowColumns(tableRow);
-  tableRow.classList.add(`columns-${cols.length}-cols`);
+  const count = getColumnCount(tableRow);
+  tableRow.classList.add(`columns-${count}-cols`);
+
+  const meta = tableRow.firstElementChild;
+  if (meta) meta.classList.add('table-row-columns-meta');
+
+  [...tableRow.children].slice(1).forEach((cell, index) => {
+    cell.classList.toggle('table-row-cell-hidden', index >= count);
+  });
 }
 
 export default function decorate(block) {
@@ -33,7 +43,7 @@ export default function decorate(block) {
     const row = document.createElement('tr');
     tbody.append(row);
 
-    getRowColumns(tableRow).forEach((col) => {
+    getRowCells(tableRow).forEach((col) => {
       const cell = document.createElement('td');
       moveInstrumentation(col, cell);
       while (col.firstChild) cell.append(col.firstChild);
