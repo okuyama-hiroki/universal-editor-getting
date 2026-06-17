@@ -246,8 +246,7 @@
                   "name": "Table Row",
                   "model": "table-row",
                   "columns": "2",
-                  "rows": "1",
-                  "filter": "table-column"
+                  "rows": "1"
                 }
               }
             }

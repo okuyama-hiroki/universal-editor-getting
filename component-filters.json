@@ -57,7 +57,13 @@
     ]
   },
   {
-    "id": "table-column",
+    "id": "table-row",
+    "components": [
+      "table-cell"
+    ]
+  },
+  {
+    "id": "table-cell",
     "components": [
       "text"
     ]
