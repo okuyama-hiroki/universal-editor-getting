@@ -1,18 +1,19 @@
-/*
- * Table Block (AEM Block Collection)
- * https://www.aem.live/developer/block-collection/table
- */
-
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function isAuthoringEnvironment() {
   return document.querySelector('script[src*="editor-support.js"]') !== null;
 }
 
-function buildCell(rowIndex) {
-  const cell = rowIndex ? document.createElement('td') : document.createElement('th');
-  if (!rowIndex) cell.setAttribute('scope', 'col');
-  return cell;
+function getRowColumns(tableRow) {
+  if (tableRow.children.length === 1 && tableRow.firstElementChild.children.length > 0) {
+    return [...tableRow.firstElementChild.children];
+  }
+  return [...tableRow.children];
+}
+
+function decorateTableRow(tableRow) {
+  const cols = getRowColumns(tableRow);
+  tableRow.classList.add(`columns-${cols.length}-cols`);
 }
 
 export default function decorate(block) {
@@ -20,32 +21,20 @@ export default function decorate(block) {
 
   if (isAuthoringEnvironment()) {
     block.classList.add('table-editing');
-    const firstRow = block.firstElementChild;
-    if (firstRow) {
-      block.classList.add(`columns-${firstRow.children.length}-cols`);
-    }
+    [...block.children].forEach(decorateTableRow);
     return;
   }
 
   const table = document.createElement('table');
-  const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
-
-  const header = !block.classList.contains('no-header');
-  if (header) table.append(thead);
   table.append(tbody);
 
-  [...block.children].forEach((child, i) => {
+  [...block.children].forEach((tableRow) => {
     const row = document.createElement('tr');
-    if (header && i === 0) thead.append(row);
-    else tbody.append(row);
+    tbody.append(row);
 
-    [...child.children].forEach((col) => {
-      const cell = buildCell(header ? i : i + 1);
-      const align = col.getAttribute('data-align');
-      const valign = col.getAttribute('data-valign');
-      if (align) cell.style.textAlign = align;
-      if (valign) cell.style.verticalAlign = valign;
+    getRowColumns(tableRow).forEach((col) => {
+      const cell = document.createElement('td');
       moveInstrumentation(col, cell);
       while (col.firstChild) cell.append(col.firstChild);
       row.append(cell);

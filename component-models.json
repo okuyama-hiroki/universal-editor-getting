@@ -304,7 +304,7 @@
     ]
   },
   {
-    "id": "table",
+    "id": "table-row",
     "fields": [
       {
         "component": "text",
@@ -312,33 +312,6 @@
         "name": "columns",
         "value": "2",
         "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "2",
-        "label": "Rows"
-      },
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "label": "Options",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "No header",
-            "value": "no-header"
-          },
-          {
-            "name": "Striped",
-            "value": "striped"
-          },
-          {
-            "name": "Bordered",
-            "value": "bordered"
-          }
-        ]
       }
     ]
   },

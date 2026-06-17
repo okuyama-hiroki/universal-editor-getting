@@ -53,7 +53,13 @@
   {
     "id": "table",
     "components": [
-      "column"
+      "table-row"
+    ]
+  },
+  {
+    "id": "table-column",
+    "components": [
+      "text"
     ]
   }
 ]
