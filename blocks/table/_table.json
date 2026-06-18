@@ -69,45 +69,153 @@
           ]
         },
         {
+          "component": "tab",
+          "label": "Column 1",
+          "name": "tab-col1"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "col1Image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col1ImageAlt",
+          "label": "Image Alt Text"
+        },
+        {
           "component": "richtext",
           "name": "col1",
           "value": "",
-          "label": "Column 1",
+          "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Column 2",
+          "name": "tab-col2"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "col2Image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col2ImageAlt",
+          "label": "Image Alt Text"
         },
         {
           "component": "richtext",
           "name": "col2",
           "value": "",
-          "label": "Column 2",
+          "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Column 3",
+          "name": "tab-col3"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "col3Image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col3ImageAlt",
+          "label": "Image Alt Text"
         },
         {
           "component": "richtext",
           "name": "col3",
           "value": "",
-          "label": "Column 3",
+          "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Column 4",
+          "name": "tab-col4"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "col4Image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col4ImageAlt",
+          "label": "Image Alt Text"
         },
         {
           "component": "richtext",
           "name": "col4",
           "value": "",
-          "label": "Column 4",
+          "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Column 5",
+          "name": "tab-col5"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "col5Image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col5ImageAlt",
+          "label": "Image Alt Text"
         },
         {
           "component": "richtext",
           "name": "col5",
           "value": "",
-          "label": "Column 5",
+          "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Column 6",
+          "name": "tab-col6"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "col6Image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "col6ImageAlt",
+          "label": "Image Alt Text"
         },
         {
           "component": "richtext",
           "name": "col6",
           "value": "",
-          "label": "Column 6",
+          "label": "Text",
           "valueType": "string"
         }
       ]
