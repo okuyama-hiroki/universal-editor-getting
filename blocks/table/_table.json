@@ -74,6 +74,13 @@
           "name": "tab-col1"
         },
         {
+          "component": "richtext",
+          "name": "col1Text1",
+          "value": "",
+          "label": "Text 1",
+          "valueType": "string"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "col1Image",
@@ -88,15 +95,22 @@
         },
         {
           "component": "richtext",
-          "name": "col1",
+          "name": "col1Text2",
           "value": "",
-          "label": "Text",
+          "label": "Text 2",
           "valueType": "string"
         },
         {
           "component": "tab",
           "label": "Column 2",
           "name": "tab-col2"
+        },
+        {
+          "component": "richtext",
+          "name": "col2Text1",
+          "value": "",
+          "label": "Text 1",
+          "valueType": "string"
         },
         {
           "component": "reference",
@@ -113,15 +127,22 @@
         },
         {
           "component": "richtext",
-          "name": "col2",
+          "name": "col2Text2",
           "value": "",
-          "label": "Text",
+          "label": "Text 2",
           "valueType": "string"
         },
         {
           "component": "tab",
           "label": "Column 3",
           "name": "tab-col3"
+        },
+        {
+          "component": "richtext",
+          "name": "col3Text1",
+          "value": "",
+          "label": "Text 1",
+          "valueType": "string"
         },
         {
           "component": "reference",
@@ -138,15 +159,22 @@
         },
         {
           "component": "richtext",
-          "name": "col3",
+          "name": "col3Text2",
           "value": "",
-          "label": "Text",
+          "label": "Text 2",
           "valueType": "string"
         },
         {
           "component": "tab",
           "label": "Column 4",
           "name": "tab-col4"
+        },
+        {
+          "component": "richtext",
+          "name": "col4Text1",
+          "value": "",
+          "label": "Text 1",
+          "valueType": "string"
         },
         {
           "component": "reference",
@@ -163,15 +191,22 @@
         },
         {
           "component": "richtext",
-          "name": "col4",
+          "name": "col4Text2",
           "value": "",
-          "label": "Text",
+          "label": "Text 2",
           "valueType": "string"
         },
         {
           "component": "tab",
           "label": "Column 5",
           "name": "tab-col5"
+        },
+        {
+          "component": "richtext",
+          "name": "col5Text1",
+          "value": "",
+          "label": "Text 1",
+          "valueType": "string"
         },
         {
           "component": "reference",
@@ -188,15 +223,22 @@
         },
         {
           "component": "richtext",
-          "name": "col5",
+          "name": "col5Text2",
           "value": "",
-          "label": "Text",
+          "label": "Text 2",
           "valueType": "string"
         },
         {
           "component": "tab",
           "label": "Column 6",
           "name": "tab-col6"
+        },
+        {
+          "component": "richtext",
+          "name": "col6Text1",
+          "value": "",
+          "label": "Text 1",
+          "valueType": "string"
         },
         {
           "component": "reference",
@@ -213,9 +255,9 @@
         },
         {
           "component": "richtext",
-          "name": "col6",
+          "name": "col6Text2",
           "value": "",
-          "label": "Text",
+          "label": "Text 2",
           "valueType": "string"
         }
       ]
