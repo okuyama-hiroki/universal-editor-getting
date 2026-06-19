@@ -64,7 +64,13 @@
 }
 
 .block.table.table-editing > div > .table-row-columns-meta,
-.block.table.table-editing > div > .table-row-cell-hidden {
+.block.table.table-editing > div > .table-row-cell-hidden,
+.block.table.table-editing .table-cell-consumed {
+  display: none;
+}
+
+.block.table.table-editing .table-cell-image .button-container,
+.block.table.table-editing .table-cell-image a.button {
   display: none;
 }
 
